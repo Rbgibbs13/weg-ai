@@ -1,13 +1,13 @@
 const sequelize = require('../config/connection');
 const {User, Story, Prompts, Images} = require('../models');
 
-const usersData = require('./usersData.json');
+const usersData = require('./users.json');
 const promptData = require('./promptData.json');
 const storyData = require('./storyData.json');
 const imageData = require('./images.json');
 
 const seedFunction = async () => {
-    await sequelize.sync({ plain: true});
+    await sequelize.sync({ force: true});
 
     const users = await User.bulkCreate(usersData, {
         individualHooks: true,
