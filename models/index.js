@@ -30,4 +30,4 @@ Prompts.belongsTo(Story, {
     foreignKey: 'prompts_id'
 });
 
-module.exports = { User, Story};
+module.exports = { User, Story, Prompts, Images};

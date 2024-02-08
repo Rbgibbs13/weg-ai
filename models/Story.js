@@ -22,7 +22,8 @@ Story.init(
         },
         user_id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true,
+            allowNull: false,
+            unique: true, 
             references: {
                 model: 'user',
                 key: 'id',
@@ -34,7 +35,7 @@ Story.init(
         timestamps: true,
         freezeTableName: true,
         underscored: true,
-        modelName: 'project',
+        modelName: 'story',
     }
 );
 
