@@ -20,4 +20,14 @@ async function main() {
      
 //   });
 }
+
+// Quiz game
+// User selects a topic
+// Ask chatgpt for a question
+// Ask chatgpt for 3 wrong and one right answer
+// User selects answer
+// Store answers
+// Score?
+// Timer?
+
 main();
