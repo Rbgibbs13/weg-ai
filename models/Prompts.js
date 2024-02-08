@@ -29,6 +29,7 @@ Prompts.init(
         },
         selected_prompt: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             validate: {
                 min: 0,
                 max: 3,
@@ -36,9 +37,10 @@ Prompts.init(
         },
         prompts_id: {
             type: DataTypes.INTEGER,
-            autoIncrement: true,
+            allowNull: false,
+            unique: true, 
             references: {
-                model: 'prompts',
+                model: "user",
                 key: 'id',
             },
         },

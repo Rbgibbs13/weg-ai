@@ -45,4 +45,4 @@ const getImage = async(gID) => {
     console.log(imageArray);
 };
  
-generateImage();
+//generateImage();
