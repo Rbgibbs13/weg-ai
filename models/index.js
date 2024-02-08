@@ -12,7 +12,7 @@ Story.belongsTo(User, {
     foreignKey: 'user_id'
 });
 
-Story.hasMany(Images, {
+Story.hasOne(Images, {
     foreignKey: 'images_id',
     onDelete: 'CASCADE'
 });
@@ -21,7 +21,7 @@ Images.belongsTo(Story, {
     foreignKey: 'images_id'
 });
 
-Story.hasMany(Prompts, {
+Story.hasOne(Prompts, {
     foreignKey: 'prompts_id',
     onDelete: 'CASCADE'
 });

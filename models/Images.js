@@ -14,6 +14,9 @@ Images.init(
         url: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                isUrl: true,
+            }
         },
         images_id: {
             type: DataTypes.INTEGER,
