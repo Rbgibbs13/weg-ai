@@ -20,6 +20,7 @@ Images.init(
         },
         images_id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             references: {
                 model: 'story',
                 key: 'id',
