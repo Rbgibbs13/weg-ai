@@ -11,7 +11,7 @@ Story.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        storyName: {
+        story_Name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -22,6 +22,7 @@ Story.init(
         },
         user_id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             references: {
                 model: 'user',
                 key: 'id',
@@ -30,7 +31,7 @@ Story.init(
     },
     {
         sequelize,
-        timestamps: false,
+        timestamps: true,
         freezeTableName: true,
         underscored: true,
         modelName: 'project',

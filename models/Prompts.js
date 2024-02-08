@@ -36,6 +36,7 @@ Prompts.init(
         },
         prompts_id: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             references: {
                 model: 'prompts',
                 key: 'id',
