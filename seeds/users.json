@@ -1,0 +1,22 @@
+[
+    {
+        "user_name": "upDog123",
+        "email": "upDog@gmail.com",
+        "password": "password123"
+    },
+    {
+        "user_name": "helloWorld123",
+        "email": "helloworld@gmail.com",
+        "password": "password123"
+    },
+    {
+        "user_name": "fooBar123",
+        "email": "foobar@gmail.com",
+        "password": "password123"
+    },
+    {
+        "user_name": "getBusy36",
+        "email": "getbusy@gmail.com",
+        "password": "password123"
+    }
+]
