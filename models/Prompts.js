@@ -39,10 +39,10 @@ Prompts.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true, 
-            references: {
-                model: "user",
-                key: 'id',
-            },
+            // references: {
+            //     model: "user",
+            //     key: 'id',
+            // },
         },
     },
     {

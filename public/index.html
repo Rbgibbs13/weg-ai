@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <section>
+        <div class="hero">
+            <div class="hero-textbody">
+                <h1 class="hero-title">Game</h1>
+                <p class="hero-desc"></p>
+                <ul class="hero-nav">
+                    <li class="nav-item"><button class="list-button">Story</button></li>
+                    <li class="nav-item"><button class="list-button">Game</button></li>
+                    <li class="nav-item"><button class="list-button">Quiz</button></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <div class="slideshow-container">
+            <h1 class="slideshow-title"></h1>
+            <div class="slides fade">
+                <div class="count-text">
+                    <p class="numbertext">1 / 4</p>
+                </div>
+                <div class="image-container">
+                    <image class="slideshow-image"></image>
+                    <p class="caption">Photo</p>
+                </div>
+            </div>
+            <div class="slides fade">
+                <div class="count-text">
+                    <p class="numbertext">2 / 4</p>
+                </div>
+                <div class="image-container">
+                    <image class="slideshow-image"></image>
+                    <p class="caption">Photo</p>
+                </div>
+            </div>
+            <div class="slides fade">
+                <div class="count-text">
+                    <p class="numbertext">3 / 4</p>
+                </div>
+                <div class="image-container">
+                    <image class="slideshow-image"></image>
+                    <p class="caption">Photo</p>
+                </div>
+            </div>
+            <div class="slides fade">
+                <div class="count-text">
+                    <p class="numbertext">4 / 4</p>
+                </div>
+                <div class="image-container">
+                    <image class="slideshow-image"></image>
+                    <p class="caption">Photo</p>
+                </div>
+            </div>
+            <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <div style="text-align:center">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+        </div>
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+</html>
