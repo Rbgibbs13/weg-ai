@@ -1,0 +1,135 @@
+* {
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body
+section {
+    display: flex;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+.hero {
+    background-image: linear-gradient(rgb(109, 7, 146), rgba(0, 0, 0, 0)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
+    background-size: auto;
+    background-position: center;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 40rem;
+}
+.hero-title {
+    font-size: 6rem;
+    color: red;
+}
+.hero-nav {
+    height: 4rem;
+    width: auto;
+}
+.nav-item {
+    width: 100%;
+    height: auto;
+}
+.nav-item button {
+    margin: 2%;
+    width: 100%;
+    height: 100%;
+}
+
+.container {
+    width: 100%;
+    min-height: 20rem;
+    background-color: grey;
+}
+
+.slideshow-container {
+    display: flex;
+    max-width: 80%;
+    position: relative;
+    margin: auto;
+}
+
+.image-container {
+    height: 100%;
+    width: 100%;
+}
+
+.slideshow-image {
+    width: 100%;
+    height: 100%;
+}
+
+.slides {
+  display: none;
+}
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  margin-top: -22px;
+  padding: 16px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.caption {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
