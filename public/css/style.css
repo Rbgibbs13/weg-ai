@@ -4,6 +4,15 @@
     padding: 0;
 }
 
+:root {
+    --h: 10rem;
+    --blue-color: skyblue;
+    --grey-color: grey;
+    --black-color: black;
+    --drop-text-color: orange;
+    --drop-shadow-color: orange;
+}
+
 section {
     display: flex;
     height: 100%;
@@ -14,8 +23,8 @@ body{
     background-color: grey;
 }
 .hero {
-    background-image: linear-gradient(rgba(229, 122, 15, .8), rgb(55, 55, 55, 0)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
-    background-size: auto;
+    background-image: linear-gradient(rgba(229, 122, 15, .2), rgb(55, 55, 55, 1)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
+    background-size: cover;
     background-position: center;
     margin: 0;
     padding: 0;
@@ -30,22 +39,36 @@ body{
     width: 100%;
 }
 .hero-title {
-    font-size: 6rem;
-    margin-left: 2%;
-    color: rgb(0, 0, 0);
-    text-shadow: 1rem 1rem white;
+    font-family: "Salsa", cursive;
+    font-size: 4rem;
+    color: rgb(255, 255, 255);
+    margin: 1% 1%;
     width: 25%;
+    min-width: 10%;
+    text-shadow: .3rem .3rem rgba(255, 183, 0, 0.523);
+    text-align: center;
+}
+.hero-title::after {
+    content: '\00a0';
+    background-image:
+      radial-gradient(at 50% 0, rgba(0, 217, 255, 1) 0%, rgba(255, 170, 0, 0.66) 30%, rgba(255, 0, 0, 0.33) 60%, transparent 75%);
+    background-size: 100% 1rem;
+    background-repeat: no-repeat;
+    float: left;
+    width: 100%;
 }
 .hero-desc {
+    font-family: "Protest Riot", sans-serif;
     font-size: 200%;
-    margin-top: 2%;
+    margin: auto 0;
     color: white;
-    text-shadow: 1rem 1rem rgba(138, 91, 5, 0.476);
+    text-shadow: .5rem .5rem rgba(255, 183, 0, 0.523);
 }
 .hero-nav {
     display: flex;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     height: 100%;
     width: 25%;
 }
@@ -54,11 +77,14 @@ body{
     width: 50%;
     height: 90%;
 }
-.nav-item button {
+.list-button {
+    color: skyblue;
+    font-size: 120%;
+    font-family: "Salsa", cursive;
     padding: 2%;
     width: 100%;
+    min-width: 5rem;
     height: 90%;
-    color: skyblue;
     background-color: grey;
     border: .1rem .1rem solid;
     border-radius: 25px;
@@ -78,7 +104,8 @@ body{
 
 .slideshow-container {
     display: flex;
-    max-width: 100%;
+    flex-wrap: wrap;
+    width: 98%;
     position: relative;
     margin: 2%;
 }
@@ -166,18 +193,26 @@ body{
 }
 
 .control-buttons {
-    background-color: grey;
-    width: 100%;
-    height: 10rem;
     display: flex;
     justify-content: space-evenly;
+    background-color: var(--grey-color);
+    width: 100%;
+    height: 10rem;
 }
 
 .select-button {
-    background-color: skyblue;
+    color: var(--blue-color);
+    font-family: "Salsa", serif;
     width: 20%;
     height: 50%;
     text-align: center;
+    border-color: var(--blue-color);
+    border-radius: 25px;
+    background-color: var(--grey-color);
+}
+.select-button:hover {
+    transition-duration: .8s;
+    background-color: black;
 }
 
 .select-button h1 {

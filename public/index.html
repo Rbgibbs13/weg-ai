@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <section>
         <div class="hero">
             <div class="hero-textbody">
-                <h1 class="hero-title">Game</h1>
-                <p class="hero-desc">Go on an adventure and create your own story!</p>
+                <h1 class="hero-title">Story Generator</h1>
+                <p class="hero-desc">Go on an adventure!  Create your own story!</p>
                 <ul class="hero-nav">
                     <li class="nav-item"><button class="list-button">Login</button></li>
                     <li class="nav-item"><button class="list-button">Story</button></li>
@@ -64,16 +66,16 @@
                     </image>
                 </div>
             </div>
-            <div class="slides fade">
+            <!-- <div class="slides fade">
                 <div class="count-text">
-                    <p class="numbertext">4 / 4</p>
+                    <p class="numbertext">5 / 5</p>
                 </div>
                 <div class="image-container">
                     <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0.jpg" class="slideshow-image">
                         <p class="caption">Photo</p>
                     </image>
                 </div>
-            </div>
+            </div> -->
             <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
             
@@ -88,9 +90,9 @@
         </div>
     </div>
     <div class="control-buttons">
-        <a class="select-button list-button" id="story-button"><h1>Story</h1></a>
-        <a class="select-button list-button" id="game-button"><h1>Game</h1></a>
-        <a class="select-button list-button" id="quiz-button"><h1>Quiz</h1></a>
+        <button class="select-button" id="story-button"><h1>Story</h1></button>
+        <button class="select-button" id="game-button"><h1>Game</h1></button>
+        <button class="select-button" id="quiz-button"><h1>Quiz</h1></button>
     </div>
     <script src="./js/index.js"></script>
 </body>
