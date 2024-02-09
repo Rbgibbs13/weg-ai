@@ -11,6 +11,8 @@
     --black-color: black;
     --drop-text-color: orange;
     --drop-shadow-color: orange;
+    --salsa-font-family: "Salsa", cursive;
+    --riot-font-family: "Protest Riot", sans-serif;
 }
 
 section {
@@ -39,23 +41,14 @@ body{
     width: 100%;
 }
 .hero-title {
-    font-family: "Salsa", cursive;
+    font-family: var(--salsa-font-family);
     font-size: 4rem;
     color: rgb(255, 255, 255);
-    margin: 1% 1%;
+    margin: auto 1%;
     width: 25%;
     min-width: 10%;
     text-shadow: .3rem .3rem rgba(255, 183, 0, 0.523);
     text-align: center;
-}
-.hero-title::after {
-    content: '\00a0';
-    background-image:
-      radial-gradient(at 50% 0, rgba(0, 217, 255, 1) 0%, rgba(255, 170, 0, 0.66) 30%, rgba(255, 0, 0, 0.33) 60%, transparent 75%);
-    background-size: 100% 1rem;
-    background-repeat: no-repeat;
-    float: left;
-    width: 100%;
 }
 .hero-desc {
     font-family: "Protest Riot", sans-serif;
@@ -94,7 +87,6 @@ body{
     transition-duration: .8s;
     background-color: black;
 }
-
 .container {
     width: 100%;
     min-height: 20rem;
@@ -102,6 +94,24 @@ body{
     padding: 2% 5%;
 }
 
+.slideshow-title {
+    color: var(--blue-color);
+    font-size: 300%;
+    font-family: var(--riot-font-family);
+    margin: auto;
+    text-align: center;
+    text-shadow: .1rem .1rem var(--drop-text-color);
+    width: 30%
+}
+.slideshow-title::after {
+    content: '\00a0';
+    background-image:
+      radial-gradient(at 50% 0, rgba(0, 217, 255, 1) 0%, rgba(255, 170, 0, 0.66) 30%, rgba(255, 0, 0, 0.33) 60%, transparent 75%);
+    background-size: 100% 1rem;
+    background-repeat: no-repeat;
+    float: left;
+    width: 100%;
+}
 .slideshow-container {
     display: flex;
     flex-wrap: wrap;
@@ -109,22 +119,23 @@ body{
     position: relative;
     margin: 2%;
 }
-
 .image-container {
     display: flex;
     height: 100%;
     width: 100%;
+    border: .5rem solid var(--blue-color);
+    border-radius: 5%;
+    box-shadow: .5rem .5rem rgba(229, 122, 15, .25);
 }
-
 .slideshow-image {
-    box-shadow: 2rem 2rem rgba(229, 122, 15, .2);
+    border-radius: 4%;
     width: 100%;
     height: 100%;
 }
 
 .slides {
   /* display: none; */
-  padding: 1%;
+  padding: .5%;
 }
 
 .prev, .next {
