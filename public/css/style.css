@@ -155,7 +155,7 @@ section::after {
   width: auto;
   margin-top: -22px;
   padding: 16px;
-  color: red;
+  color: var(--blue-color);
   font-weight: bold;
   font-size: 18px;
   transition: 0.6s ease;
@@ -169,7 +169,7 @@ section::after {
 }
 
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+  background-color: var(--grey-color);
 }
 
 .caption {
