@@ -11,8 +11,9 @@
         <div class="hero">
             <div class="hero-textbody">
                 <h1 class="hero-title">Game</h1>
-                <p class="hero-desc"></p>
+                <p class="hero-desc">Go on an adventure and create your own story!</p>
                 <ul class="hero-nav">
+                    <li class="nav-item"><button class="list-button">Login</button></li>
                     <li class="nav-item"><button class="list-button">Story</button></li>
                     <li class="nav-item"><button class="list-button">Game</button></li>
                     <li class="nav-item"><button class="list-button">Quiz</button></li>
@@ -28,8 +29,9 @@
                     <p class="numbertext">1 / 4</p>
                 </div>
                 <div class="image-container">
-                    <image class="slideshow-image"></image>
-                    <p class="caption">Photo</p>
+                    <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg" class="slideshow-image">
+                        <p class="caption">Photo</p>
+                    </image>
                 </div>
             </div>
             <div class="slides fade">
@@ -37,8 +39,9 @@
                     <p class="numbertext">2 / 4</p>
                 </div>
                 <div class="image-container">
-                    <image class="slideshow-image"></image>
-                    <p class="caption">Photo</p>
+                    <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(2).jpg" class="slideshow-image">
+                        <p class="caption">Photo</p>
+                    </image>
                 </div>
             </div>
             <div class="slides fade">
@@ -46,8 +49,9 @@
                     <p class="numbertext">3 / 4</p>
                 </div>
                 <div class="image-container">
-                    <image class="slideshow-image"></image>
-                    <p class="caption">Photo</p>
+                    <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(3).jpg" class="slideshow-image">
+                        <p class="caption">Photo</p>
+                    </image>
                 </div>
             </div>
             <div class="slides fade">
@@ -55,18 +59,38 @@
                     <p class="numbertext">4 / 4</p>
                 </div>
                 <div class="image-container">
-                    <image class="slideshow-image"></image>
-                    <p class="caption">Photo</p>
+                    <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(4).jpg" class="slideshow-image">
+                        <p class="caption">Photo</p>
+                    </image>
+                </div>
+            </div>
+            <div class="slides fade">
+                <div class="count-text">
+                    <p class="numbertext">4 / 4</p>
+                </div>
+                <div class="image-container">
+                    <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0.jpg" class="slideshow-image">
+                        <p class="caption">Photo</p>
+                    </image>
                 </div>
             </div>
             <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
+            
+            
         </div>
         <div style="text-align:center">
             <span class="dot" onclick="currentSlide(1)"></span>
             <span class="dot" onclick="currentSlide(2)"></span>
             <span class="dot" onclick="currentSlide(3)"></span>
+            <span class="dot" onclick="currentSlide(4)"></span>
+            <span class="dot" onclick="currentSlide(5)"></span>
         </div>
+    </div>
+    <div class="control-buttons">
+        <a class="select-button list-button" id="story-button"><h1>Story</h1></a>
+        <a class="select-button list-button" id="game-button"><h1>Game</h1></a>
+        <a class="select-button list-button" id="quiz-button"><h1>Quiz</h1></a>
     </div>
     <script src="./js/index.js"></script>
 </body>

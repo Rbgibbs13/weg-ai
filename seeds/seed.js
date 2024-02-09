@@ -12,18 +12,15 @@ const seedFunction = async () => {
     const users = await User.bulkCreate(usersData, {
         individualHooks: true,
         returning: true,
-
-    });
-    const prompt = await Prompts.bulkCreate(promptData, {
-        individualHooks: true,
-        returning: true,
-    });
-
-    const images = await Images.bulkCreate(imageData, {
-        individualHooks: true,
-        returning: true,
     });
     const story = await Story.bulkCreate(storyData, {
+        individualHooks: true,
+        returning: true,
+    });const images = await Images.bulkCreate(imageData, {
+        individualHooks: true,
+        returning: true,
+    });
+    const prompt = await Prompts.bulkCreate(promptData, {
         individualHooks: true,
         returning: true,
     });

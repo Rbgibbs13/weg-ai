@@ -23,7 +23,10 @@ Story.init(
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true, 
+            unique: true,
+            validate: {
+                isNumeric: true,
+            },
             references: {
                 model: 'user',
                 key: 'id',

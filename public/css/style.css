@@ -4,66 +4,100 @@
     padding: 0;
 }
 
-body
 section {
     display: flex;
     height: 100%;
     margin: 0;
     padding: 0;
 }
+body{
+    background-color: grey;
+}
 .hero {
-    background-image: linear-gradient(rgb(109, 7, 146), rgba(0, 0, 0, 0)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
+    background-image: linear-gradient(rgba(229, 122, 15, .8), rgb(55, 55, 55, 0)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
     background-size: auto;
     background-position: center;
-    display: flex;
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 40rem;
+    height: 25%;
+}
+.hero-textbody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10rem;
+    width: 100%;
 }
 .hero-title {
     font-size: 6rem;
-    color: red;
+    margin-left: 2%;
+    color: rgb(0, 0, 0);
+    text-shadow: 1rem 1rem white;
+    width: 25%;
+}
+.hero-desc {
+    font-size: 200%;
+    margin-top: 2%;
+    color: white;
+    text-shadow: 1rem 1rem rgba(138, 91, 5, 0.476);
 }
 .hero-nav {
-    height: 4rem;
-    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100%;
+    width: 25%;
 }
 .nav-item {
-    width: 100%;
-    height: auto;
+    list-style: none;
+    width: 50%;
+    height: 90%;
 }
 .nav-item button {
-    margin: 2%;
+    padding: 2%;
     width: 100%;
-    height: 100%;
+    height: 90%;
+    color: skyblue;
+    background-color: grey;
+    border: .1rem .1rem solid;
+    border-radius: 25px;
+    border-color: skyblue;
+}
+.nav-item button:hover {
+    transition-duration: .8s;
+    background-color: black;
 }
 
 .container {
     width: 100%;
     min-height: 20rem;
     background-color: grey;
+    padding: 2% 5%;
 }
 
 .slideshow-container {
     display: flex;
-    max-width: 80%;
+    max-width: 100%;
     position: relative;
-    margin: auto;
+    margin: 2%;
 }
 
 .image-container {
+    display: flex;
     height: 100%;
     width: 100%;
 }
 
 .slideshow-image {
+    box-shadow: 2rem 2rem rgba(229, 122, 15, .2);
     width: 100%;
     height: 100%;
 }
 
 .slides {
-  display: none;
+  /* display: none; */
+  padding: 1%;
 }
 
 .prev, .next {
@@ -92,20 +126,17 @@ section {
 
 .caption {
   color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
+  font-size: auto;
   position: absolute;
-  bottom: 8px;
-  width: 100%;
+  width: 20%;
   text-align: center;
 }
 
 .numbertext {
   color: #f2f2f2;
-  font-size: 12px;
+  font-size: 125%;
   padding: 8px 12px;
   position: absolute;
-  top: 0;
 }
 
 .dot {
@@ -126,10 +157,29 @@ section {
 /* Fading animation */
 .fade {
   animation-name: fade;
-  animation-duration: 1.5s;
+  animation-duration: 3.5s;
 }
 
 @keyframes fade {
-  from {opacity: .4}
+  from {opacity: .2}
   to {opacity: 1}
+}
+
+.control-buttons {
+    background-color: grey;
+    width: 100%;
+    height: 10rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.select-button {
+    background-color: skyblue;
+    width: 20%;
+    height: 50%;
+    text-align: center;
+}
+
+.select-button h1 {
+ 
 }
