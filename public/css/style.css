@@ -68,7 +68,7 @@ section::after {
 }
 .hero-nav {
     display: flex;
-    align-items: center;
+    align-items: end;
     flex-direction: column;
     justify-content: center;
     height: 100%;
@@ -78,6 +78,7 @@ section::after {
     list-style: none;
     width: 50%;
     height: 90%;
+    margin-right: 2%;
 }
 .list-button {
     color: skyblue;
