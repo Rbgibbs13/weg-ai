@@ -4,66 +4,127 @@
     padding: 0;
 }
 
-body
+:root {
+    --h: 10rem;
+    --blue-color: skyblue;
+    --grey-color: grey;
+    --black-color: black;
+    --drop-text-color: orange;
+    --drop-shadow-color: orange;
+}
+
 section {
     display: flex;
     height: 100%;
     margin: 0;
     padding: 0;
 }
+body{
+    background-color: grey;
+}
 .hero {
-    background-image: linear-gradient(rgb(109, 7, 146), rgba(0, 0, 0, 0)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
-    background-size: auto;
+    background-image: linear-gradient(rgba(229, 122, 15, .2), rgb(55, 55, 55, 1)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
+    background-size: cover;
     background-position: center;
-    display: flex;
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 40rem;
+    height: 25%;
+}
+.hero-textbody {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 10rem;
+    width: 100%;
 }
 .hero-title {
-    font-size: 6rem;
-    color: red;
+    font-family: "Salsa", cursive;
+    font-size: 4rem;
+    color: rgb(255, 255, 255);
+    margin: 1% 1%;
+    width: 25%;
+    min-width: 10%;
+    text-shadow: .3rem .3rem rgba(255, 183, 0, 0.523);
+    text-align: center;
+}
+.hero-title::after {
+    content: '\00a0';
+    background-image:
+      radial-gradient(at 50% 0, rgba(0, 217, 255, 1) 0%, rgba(255, 170, 0, 0.66) 30%, rgba(255, 0, 0, 0.33) 60%, transparent 75%);
+    background-size: 100% 1rem;
+    background-repeat: no-repeat;
+    float: left;
+    width: 100%;
+}
+.hero-desc {
+    font-family: "Protest Riot", sans-serif;
+    font-size: 200%;
+    margin: auto 0;
+    color: white;
+    text-shadow: .5rem .5rem rgba(255, 183, 0, 0.523);
 }
 .hero-nav {
-    height: 4rem;
-    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    width: 25%;
 }
 .nav-item {
-    width: 100%;
-    height: auto;
+    list-style: none;
+    width: 50%;
+    height: 90%;
 }
-.nav-item button {
-    margin: 2%;
+.list-button {
+    color: skyblue;
+    font-size: 120%;
+    font-family: "Salsa", cursive;
+    padding: 2%;
     width: 100%;
-    height: 100%;
+    min-width: 5rem;
+    height: 90%;
+    background-color: grey;
+    border: .1rem .1rem solid;
+    border-radius: 25px;
+    border-color: skyblue;
+}
+.nav-item button:hover {
+    transition-duration: .8s;
+    background-color: black;
 }
 
 .container {
     width: 100%;
     min-height: 20rem;
     background-color: grey;
+    padding: 2% 5%;
 }
 
 .slideshow-container {
     display: flex;
-    max-width: 80%;
+    flex-wrap: wrap;
+    width: 98%;
     position: relative;
-    margin: auto;
+    margin: 2%;
 }
 
 .image-container {
+    display: flex;
     height: 100%;
     width: 100%;
 }
 
 .slideshow-image {
+    box-shadow: 2rem 2rem rgba(229, 122, 15, .2);
     width: 100%;
     height: 100%;
 }
 
 .slides {
-  display: none;
+  /* display: none; */
+  padding: 1%;
 }
 
 .prev, .next {
@@ -92,20 +153,17 @@ section {
 
 .caption {
   color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
+  font-size: auto;
   position: absolute;
-  bottom: 8px;
-  width: 100%;
+  width: 20%;
   text-align: center;
 }
 
 .numbertext {
   color: #f2f2f2;
-  font-size: 12px;
+  font-size: 125%;
   padding: 8px 12px;
   position: absolute;
-  top: 0;
 }
 
 .dot {
@@ -126,10 +184,37 @@ section {
 /* Fading animation */
 .fade {
   animation-name: fade;
-  animation-duration: 1.5s;
+  animation-duration: 3.5s;
 }
 
 @keyframes fade {
-  from {opacity: .4}
+  from {opacity: .2}
   to {opacity: 1}
+}
+
+.control-buttons {
+    display: flex;
+    justify-content: space-evenly;
+    background-color: var(--grey-color);
+    width: 100%;
+    height: 10rem;
+}
+
+.select-button {
+    color: var(--blue-color);
+    font-family: "Salsa", serif;
+    width: 20%;
+    height: 50%;
+    text-align: center;
+    border-color: var(--blue-color);
+    border-radius: 25px;
+    background-color: var(--grey-color);
+}
+.select-button:hover {
+    transition-duration: .8s;
+    background-color: black;
+}
+
+.select-button h1 {
+ 
 }

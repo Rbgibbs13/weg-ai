@@ -20,8 +20,9 @@ Images.init(
         },
         images_id: {
             type: DataTypes.INTEGER,
-           allowNull: false,
-           unique: true,
+            allowNull: false,
+            unique: true,
+            defaultValue: 1,
             references: {
                 model: 'story',
                 key: 'id',

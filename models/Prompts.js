@@ -38,11 +38,10 @@ Prompts.init(
         prompts_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true, 
-            // references: {
-            //     model: "user",
-            //     key: 'id',
-            // },
+            unique: true,
+            validate : {
+                isNumeric: true,
+            }
         },
     },
     {

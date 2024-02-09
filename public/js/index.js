@@ -1,6 +1,6 @@
 let slideIndex = 1;
 showSlides(slideIndex);
-
+const imageEl = document.querySelectorAll(".slideshow-image");
 // Next/previous controls
 function plusSlides(n) {
   showSlides(slideIndex += n);
