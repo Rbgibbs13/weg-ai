@@ -2,6 +2,7 @@ const navHomeBtnEl = document.querySelector("#nav-homeBtn");
 const gameBtnEl = document.querySelector("#game-button");
 const storyBtnEl = document.querySelector("#story-button");
 const quizBtnEl = document.querySelector("#quiz-button");
+const dropBtnEl = document.querySelector(".dropdown-button");
 const imageHolderArrayEl = document.querySelectorAll('.slideshow-image');
 const slides = document.getElementsByClassName("slides");
 
@@ -139,9 +140,9 @@ const startQuiz = async() => {
     });
 };
 
-navHomeBtnEl.addEventListener("click", (e) => {
+dropBtnEl.addEventListener("click", (e) => {
     e.preventDefault();
-    goHome();
+    document.querySelector(".dropdown-container").classList.toggle("show");
 });
 gameBtnEl.addEventListener("click", (e) => {
     e.preventDefault();
