@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { User, Story, Prompts, Images } = require('../models');
 const authInput = require('../utils/auth');
 
+//localhost:3001/
 router.get('/', async(req, res) => {
     try {
         const imageData = await Images.findAll({
@@ -24,6 +25,7 @@ router.get('/', async(req, res) => {
     }
 });
 
+//localhost:3001/game
 router.get('/game', (req, res) => {
     try {
         const gameData = "";
@@ -33,6 +35,7 @@ router.get('/game', (req, res) => {
     }
 });
 
+//localhost:3001/quiz
 router.get('/quiz', (req, res) => {
     try {
         res.render('quiz', {});
@@ -41,6 +44,7 @@ router.get('/quiz', (req, res) => {
     }
 });
 
+//localhost:3001/profile
 router.get('/profile', authInput, async (req, res) => {
     try {
       const userData = await User.findByPk(req.session.user_id, {
@@ -59,15 +63,19 @@ router.get('/profile', authInput, async (req, res) => {
     }
   });
 
+//localhost:3001/login
 router.get('/login', authInput, (req, res) => {
+    res.render('login');
+
     if(req.session.logged_in) {
         res.redirect('/');
         return;
     }
 
-    res.render('login');
+    // res.render('login');
 });
 
+//localhost:3001/logout
 router.get('/logout', authInput, (req, res) => {
     if(!req.session.logged_in) {
         res.redirect('/');
@@ -75,6 +83,6 @@ router.get('/logout', authInput, (req, res) => {
     }
 
     res.render('logout');
-})
+});
 
 module.exports = router;

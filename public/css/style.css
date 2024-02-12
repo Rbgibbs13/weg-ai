@@ -2,6 +2,7 @@
     box-sizing:border-box;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 :root {
@@ -80,20 +81,20 @@ section::after {
     width: 25%;
 }
 .home-button {
-    background-color: var(--grey-color);
-    border: .1rem .1rem solid;
-    border-radius: 25px;
-    border-color: var(--blue-color);
     color: var(--blue-color);
+    background-color: var(--grey-color);
+    border: 1mm ridge var(--blue-color);
+    border-radius: 25px;
     height: 5rem;
     width: 5rem;
     text-align: center;
     text-decoration: none;
 }
 .home-button h1 {
-    color: white;
-    padding: 20%;
-    margin-top: 40%;
+    color: var(--blue-color);
+    height: 100%;
+    font-family: var(--salsa-font-family);
+    font-size: 150%;
     text-align: center;
 }
 .home-button:hover {
@@ -106,7 +107,10 @@ section::after {
 }
 .dropdown-button {
     color: var(--blue-color);
+    border: 1mm ridge var(--blue-color);
     background-color: grey;
+    font-family: var(--salsa-font-family);
+    font-size: 150%;
     padding: 2%;
     min-width: 5rem;
     height: 5rem;
@@ -114,7 +118,7 @@ section::after {
     text-align: center;
 }
 .dropdown-button:hover {
-    transition-duration: 8s;
+    transition-duration: .8s;
     background-color: var(--orange-color);
 }
 .dropdown-container {
@@ -128,17 +132,20 @@ section::after {
     display: block;
 }
 .hero-nav {
+    background-color: black;
     display: flex;
-    align-items: start;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-evenly;
+    position: absolute;
+    right: 0;
+    top: 0;
     height: 100%;
-    width: 100%;
+    width: 50%;
 }
 .nav-item {
     list-style: none;
     width: 100%;
-    height: 90%;
+    height: 100%;
 }
 .prof-image{
     height: 100%;
@@ -146,17 +153,19 @@ section::after {
 }
 .list-button {
     color: skyblue;
-    font-size: 120%;
+    display: block;
+    font-size: 150%;
     font-family: "Salsa", cursive;
-    padding: 2%;
-    width: 90%;
-    height: 90%;
+    margin: auto;
+    width: 100%;
     background-color: grey;
-    border: .1rem .1rem solid;
+    border: .1rem ridge var(--blue-color);
     border-radius: 25px;
-    border-color: skyblue;
     text-align: center;
     text-decoration: none;
+}
+.list-button:hover {
+    background-color: var(--orange-color);
 }
 .nav-item button:hover {
     transition-duration: .8s;
@@ -386,8 +395,9 @@ section::after {
     font-size: 150%;
     line-height: 2rem;
     text-align: center;
-    height: 4rem;
+    height: auto;
     width: 100%;
+    overflow: hidden;
 }
 .option-block {
     display: flex;
@@ -455,8 +465,18 @@ section::after {
     font-family: var(--poppins-font-family);
     margin: auto 2%;
 }
+.line-break {
+    border: 4px solid var(--blue-color);
+    margin-bottom: 1%;
+    width: 100%
+}
 #custom-theme {
-    height: 100%;
-    font-size: 200%;
+    height: 90%;
+    font-size: 150%;
+    width: 60%;
+}
+#custom-name {
+    height: 90%;
+    font-size: 150%;
     width: 60%;
 }

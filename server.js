@@ -46,3 +46,5 @@ sequelize.sync({ force: false }).then( async() => {
     //     model: "gpt-3.5-turbo",});
     app.listen(PORT, () => console.log('Now listening http://localhost:3001'));
 });
+
+module.exports = OpenAI;

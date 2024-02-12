@@ -37,6 +37,7 @@ const showSlides = (n) => {
   let i;
   let dots = document.getElementsByClassName("dot");
 
+  if(!slides || !dots) { return; }
   if (n >= slides.length) {slideIndex = 0};
   if (n < 0) {slideIndex = slides.length - 1};
 
@@ -144,18 +145,18 @@ dropBtnEl.addEventListener("click", (e) => {
     e.preventDefault();
     document.querySelector(".dropdown-container").classList.toggle("show");
 });
-gameBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startGame();
-});
-storyBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startStory();
-});
-quizBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startQuiz();
-});
+// gameBtnEl.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     startGame();
+// });
+// storyBtnEl.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     startStory();
+// });
+// quizBtnEl.addEventListener("click", (e) => {
+//     e.preventDefault();
+//     startQuiz();
+// });
 
 showSlides(slideIndex);
 cycleImages();

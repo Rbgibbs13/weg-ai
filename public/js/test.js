@@ -1,38 +1,37 @@
-console.log("HELLO GAME WORLD");
-// const OpenAI = require("openai");
-// const openai = new OpenAI({ apiKey: process.env['OPENAI_API_KEY'], });
 const gameTitleEl = document.querySelector('#game-title');
-const responseText = document.querySelector(".response-text");
 const promptBtns = document.querySelectorAll(".option-button");
 const themeBtns = document.querySelectorAll(".theme-button");
 const promptText = document.querySelectorAll(".option-text");
-const themeEl = document.querySelector(".theme-block");
+
 const responseEl = document.querySelector('.response-block');
+const responseTextEl = document.querySelector(".response-text");
+const responseImageEl = document.querySelector('.response-image');
 const optionEl = document.querySelector('.option-block');
+
+const themeEl = document.querySelector(".theme-block");
 const themeInputEl = document.querySelector('#custom-theme');
 
 let theme = "";
-const periodTime = 2000;
-const spaceTime = 250;
-const charTime = 100;
+const charTime = 40;
+const startScenario = `"Your scenario is being generated, please wait patiently...."`
 
-const test = `"You fall down the mountain. Then you see a shadow in the distance. <br>Testing line break."`
+let realBody = {
+  height: 512,
+  width: 512,
+  modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+  prompt: 'A forest in the mountains',
+  alchemy: true,
+  photoReal: true,
+  photoRealStrength: 0.45,
+  presetStyle: 'ENVIRONMENT'
+};
 
-const gptModel = "gpt-3.5-turbo";
-let promptMessages = [
-  {
-    "role": "system",
-    "content": "You are an expert storyteller."
-  },
-  {
-    "role": "system",
-    "content": `You write stories about ${theme} adventures.`,
-  },
-  {
-    "role": "user", 
-    "content": "Write a jingle for an underwear company."
-  },
-];
+let cartoonBody = {
+  height: 512,
+  width: 512,
+  modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+  prompt: 'A forest in the mountains',
+};
 
 const realisticOptions = {
   method: 'POST',
@@ -41,16 +40,7 @@ const realisticOptions = {
     'content-type': 'application/json',
     authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
   },
-  body: JSON.stringify({
-    height: 512,
-    width: 512,
-    modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-    prompt: 'A forest in the mountains',
-    alchemy: true,
-    photoReal: true,
-    photoRealStrength: 0.45,
-    presetStyle: 'ENVIRONMENT'
-  })
+  body: JSON.stringify(realBody)
 };
 
 const cartoonOptions = {
@@ -65,7 +55,6 @@ const cartoonOptions = {
     width: 512,
     modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
     prompt: 'A forest in the mountains',
-    alchemy: true,
   })
 };
 
@@ -85,33 +74,26 @@ const hideElements = () => {
 
 const selectTheme = async (selection) => {
   theme = selection.innerHTML;
-  console.log(selection);
-  gameTitleEl.innerHTML = theme + " Game!";
+  gameTitleEl.innerHTML = theme + " Adventure!";
   themeEl.style.display = "none";
   responseEl.style.display = "flex";
-  optionEl.style.display = "flex";
+
   //Generate Image and Prompts here
-  //generatePrompts();
+  writeText(startScenario, responseTextEl);
+  await generatePrompts(theme);
   //generateImage();
 
-  await writeText(test, responseText).then(() => {
-    writePrompts();
-  });
-};
-
-const writePrompts = async() => {
-  for(let i = 0; i < promptText.length; i++) {
-    writeText(promptText[i].innerHTML, promptText[i]);
-  };
+  // await writeText(promptArray[0], responseTextEl).then(() => {
+  //   writePrompts();
+  // });
 };
 
 const setTheme = (input) => {
   theme = input;
   themeEl.style.display = "none";
   responseEl.style.display = "flex";
-  optionEl.style.display = "flex";
 
-  writeText(test, responseText).then(() => {
+  writeText(testScenario, responseTextEl).then(() => {
     //Generate Image here and
     
   });
@@ -120,22 +102,51 @@ const setTheme = (input) => {
   };
 };
 
-const selectPrompt = (index) => {
+const selectPrompt = async(index) => {
   //Store the CHOICE data and image here
   //Use CHOICE to generate new SCENARIO, IMAGE, and four PROMPTS
+  const postData = await fetch('../api/prompt/save', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data.choices[0].message.content),
+  });
+
   console.log(promptText[index].innerHTML);
 };
 
-const generatePrompts = async() => {
-  const prompt = await openai.chat.completions.create({
-        messages: promptMessages,
-        model: gptModel,
-      });
-  console.log(prompt);
+const generatePrompts = async(themeIN) => {
+  const scenario = await fetch(`../api/prompt/generate/${themeIN}`, {
+    method: 'POST',
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await scenario.json();
+  cartoonBody.prompt = data.choices[0].message.content;
+  await generateImage();
+  writeText(data.choices[0].message.content, responseTextEl);
+  // responseImageEl.src = images[0];
+
+  const answers = await fetch(`/api/prompt/generate`, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const answerData = await answers.json();
+  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return split});
+  optionEl.style.display = "flex";
+  writePrompts(splitArray);
 };
 
 const generateImage = async() => {
-    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', realisticOptions);
+    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', cartoonOptions);
     let gID = await rawData.json();
     let generatedID = gID.sdGenerationJob.generationId;
     setTimeout(() => getImage(`${generatedID}`), 10000);
@@ -151,46 +162,61 @@ const getImage = async(gID) => {
     for(let i = 0; i < location.length; i++) {
         imageArray.push(location[i].url);
     }
+
     console.log(imageArray);
+    responseImageEl.src = imageArray[0];
+};
+
+
+const writePrompts = async(promptData) => {
+  console.log(promptData);
+  for(let i = 0; i < promptData.length; i++) {
+    console.log(promptText[i]);
+    writeText(promptData[i], promptText[i]);
+  };
 };
 
 const writeText = async(input, target) => {
   let copy = input;
   let build = "";
   let index = 0;
+  console.log(copy + " : Target => " + target);
+
   const printCharacter = async() => {
-    if(copy[index] === " ") {
-      const spaceBuild = setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, spaceTime);
-    } else if(copy[index] === ".") {
-      const periodBuild = setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, periodTime);
-    } else if(copy[index] === "<") {
-      setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, 2000);
-    } else {
-      const charBuild = setTimeout(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, charTime);
-    }
+
+    const charBuild = setTimeout(() => {
+      build += copy.charAt(index);
+      index++;
+      if(index <= copy.length) { printCharacter(); }
+    }, charTime);
+
+    // if(copy[index] === " ") {
+    //   const spaceBuild = setInterval(() => {
+    //     build += copy.charAt(index);
+    //     index++;
+    //     if(index <= copy.length) { printCharacter(); }
+    //   }, spaceTime);
+    // } else if(copy[index] === ".") {
+    //   const periodBuild = setInterval(() => {
+    //     build += copy.charAt(index);
+    //     index++;
+    //     if(index <= copy.length) { printCharacter(); }
+    //   }, periodTime);
+    // } else if(copy[index] === "<") {
+    //   setInterval(() => {
+    //     build += copy.charAt(index);
+    //     index++;
+    //     if(index <= copy.length) { printCharacter(); }
+    //   }, 2000);
+    // } else {
+      
+    // }
 
     target.innerHTML = build;
   };
 
   printCharacter();
 };
-
 
 for(let i = 0; i < promptBtns.length; i++) {
   promptBtns[i].addEventListener("click", (e) => {
@@ -202,8 +228,8 @@ themeInputEl.addEventListener("submit", (e) => {
   selectTheme(themeInputEl.parentElement.children[1]);
 });
 for(let i = 0; i < themeBtns.length; i++) {
-  themeBtns[i].addEventListener("click", (e) => {
-    selectTheme(themeBtns[i].parentElement.children[1]);
+  themeBtns[i].addEventListener("click", async (e) => {
+    await selectTheme(themeBtns[i].parentElement.children[1]);
   });
 };
 
