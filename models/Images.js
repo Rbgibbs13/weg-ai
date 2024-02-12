@@ -19,6 +19,10 @@ Images.init(
             }
         },
         //Get any name data from fetch
+        image_description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         story_id: {
             type: DataTypes.INTEGER,
             allowNull: false,

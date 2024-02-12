@@ -9,11 +9,13 @@
     --blue-color: skyblue;
     --orange-color: orange;
     --grey-color: grey;
+    --green-color: rgb(10, 102, 10);
     --black-color: black;
     --drop-text-color: rgba(255, 183, 0, 0.523);
     --drop-shadow-color: rgba(255, 183, 0, 0.523);
     --salsa-font-family: "Salsa", cursive;
     --riot-font-family: "Protest Riot", sans-serif;
+    --poppins-font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -50,9 +52,9 @@ section::after {
     width: 100%;
 }
 .hero-title {
+    color: rgb(255, 255, 255);
     font-family: var(--salsa-font-family);
     font-size: 4rem;
-    color: rgb(255, 255, 255);
     margin: auto 1%;
     width: 25%;
     min-width: 10%;
@@ -60,10 +62,11 @@ section::after {
     text-align: center;
 }
 .hero-desc {
-    font-family: "Protest Riot", sans-serif;
-    font-size: 250%;
-    margin: auto 0;
     color: white;
+    font-family: var(--riot-font-family);
+    font-size: 250%;
+    overflow: hidden;
+    margin: auto 0;
     text-shadow: .3rem .3rem rgba(255, 183, 0, 0.523);
 }
 .hero-nav {
@@ -102,7 +105,13 @@ section::after {
     min-height: 20rem;
     padding: 2% 5%;
 }
-
+.slideshow-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    position: relative;
+    margin: 2% 0;
+}
 .slideshow-title {
     color: var(--blue-color);
     font-size: 300%;
@@ -110,7 +119,7 @@ section::after {
     margin: auto;
     text-align: center;
     text-shadow: .1rem .1rem var(--drop-text-color);
-    width: 30%
+    width: 50%
 }
 .slideshow-title::after {
     content: '\00a0';
@@ -120,13 +129,6 @@ section::after {
     background-repeat: no-repeat;
     float: left;
     width: 100%;
-}
-.slideshow-container {
-    display: flex;
-    /* flex-wrap: wrap; */
-    width: 100%;
-    position: relative;
-    margin: 2%;
 }
 .image-container {
     display: flex;
@@ -138,6 +140,7 @@ section::after {
 }
 .slideshow-image {
     border-radius: 3.5%;
+    max-height: 512px;
     height: 100%;
     width: 100%;
 }
@@ -146,7 +149,6 @@ section::after {
     transform: scale(1.1);
 }
 .slides {
-  /* display: none; */
   padding: .5%;
 }
 .prev, .next {
@@ -158,37 +160,43 @@ section::after {
   padding: 16px;
   color: var(--blue-color);
   font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  font-size: 200%;
+  transition: 0.8s ease;
   user-select: none;
 }
-
 .next {
   right: 0;
-  border-radius: 3px 0 0 3px;
+  border-radius: 0px 25px 25px 0px;
 }
-
+.prev {
+    left: 0;
+    border-radius: 25px 0 0 25px;
+}
 .prev:hover, .next:hover {
   background-color: var(--grey-color);
 }
 
 .caption {
   color: #f2f2f2;
+  font-family: var(--poppins-font-family);
   font-size: 200%;
   position: absolute;
-  max-width: 20%;
-  overflow: auto;
+  overflow: visible;
   text-align: left;
   margin-left: 1%;
-  top: 90%;
-  width: 20%;
+  top: 100%;
+  width: 100%;
 }
 .numbertext {
   color: #f2f2f2;
-  font-size: 150%;
+  font-family: var(--poppins-font-family);
+  font-size: 200%;
+  font-weight: bold;
   padding: 8px 12px;
   position: absolute;
+}
+.dot-container {
+    margin-top: 5%
 }
 .dot {
   cursor: pointer;
@@ -222,6 +230,10 @@ section::after {
     width: 100%;
     height: 10rem;
 }
+.control-buttons a {
+    border: .2rem solid var(--blue-color);
+    text-decoration: none;
+}
 .select-button {
     color: var(--blue-color);
     font-family: "Salsa", serif;
@@ -238,6 +250,9 @@ section::after {
 }
 
 .select-button h1 {
+    height: 100%;
+    width: 100%;
+    margin: 2% auto;
     font-size: 300%;
     text-shadow: .2rem .2rem var(--drop-text-color);
 }
@@ -251,11 +266,10 @@ section::after {
     bottom: 0;
     width: 100%;
   }
-
-.navbar a {
+.navbar button {
     color: var(--orange-color);
+    background-color: grey;
     height: 100%;
-    font-size: 250%;
     text-align: center;
     text-decoration: none;
     font-family: var(--salsa-font-family);
@@ -263,15 +277,124 @@ section::after {
 .navbar h3 {
     color: var(--orange-color);
     font-family: var(--salsa-font-family);
-    font-size: 250%;
-    padding: .5%;
+    font-size: 200%;
+    margin: 1%;
+    text-shadow: .2rem .2rem var(--black-color);
 }
-.navbar a:hover {
+.navbar button:hover {
     transition-duration: 1s;
     color: var(--orange-color);
     background-color: var(--blue-color);
 }
-.navbar a.active {
+.navbar button.active {
     display: block;
     background-color: black;
+}
+
+/* GAME CSS START */
+#game-title {
+    color: var(--blue-color);
+    font-family: var(--salsa-font-family);
+    font-size: 300%;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: .2rem .2rem var(--grey-color);
+    width: 100%;
+}
+.response-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 30rem;
+}
+.response-image-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+.response-image {
+    max-height: 30rem;
+    border: .2rem solid var(--green-color);
+}
+.response-text {
+    color: whitesmoke;
+    font-family: var(--poppins-font-family);
+    font-size: 150%;
+    line-height: 2rem;
+    text-align: center;
+    height: 4rem;
+    width: 100%;
+}
+.option-block {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 25rem;
+}
+.option-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25%;
+    width: 100%;
+}
+.option-button {
+    height: 2rem;
+    width: 2rem;
+    margin: auto 2%;
+    border-radius: 100%;
+    background-color: var(--blue-color);
+}
+.option-button:hover {
+    background-color: var(--grey-color);
+    box-shadow: 1rem 1rem var(--blue-color);
+    transition-duration: .6s;
+}
+.option-text {
+    color: white;
+    font-family: var(--poppins-font-family);
+    font-size: 150%;
+}
+.theme-block {
+    display: flex;
+    flex-direction: column;
+    margin: auto 20%;
+    height: 25rem;
+    width: 60%;
+}
+.theme-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 25%;
+    width: 100%;
+}
+.theme-button {
+    height: 2rem;
+    width: 2rem;
+    margin: auto 2%;
+    border-radius: 100%;
+    background-color: var(--blue-color);
+}
+.theme-button:hover {
+    transition-duration: .8s;
+    background-color: var(--orange-color);
+    box-shadow: .2rem .2rem var(--blue-color);
+}
+.theme-container:hover p {
+    transition-duration: .8s;
+    color: var(--orange-color);
+}
+.theme-container label {
+    color: white;
+    font-size: 150%;
+    font-family: var(--poppins-font-family);
+    margin: auto 2%;
+}
+#custom-theme {
+    height: 100%;
+    font-size: 200%;
+    width: 60%;
 }

@@ -16,7 +16,8 @@ const seedFunction = async () => {
     const story = await Story.bulkCreate(storyData, {
         individualHooks: true,
         returning: true,
-    });const images = await Images.bulkCreate(imageData, {
+    });
+    const images = await Images.bulkCreate(imageData, {
         individualHooks: true,
         returning: true,
     });

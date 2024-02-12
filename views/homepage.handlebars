@@ -6,20 +6,20 @@
             <div class="image-container">
                 <image src={{image.url}} class="slideshow-image">
                     <p class="numbertext">{{image.story_id}}</p>
-                    {{!-- <p class="caption">{{image.name}}</p> --}}
                 </image>
+                <p class="caption">{{image.image_description}}</p>
             </div>
         </div>
         {{/each}}
         <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
     </div>
-    <div style="text-align:center">
+    <div class="dot-container" style="text-align:center">
+        <span class="dot" onclick="currentSlide(0)"></span>
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
         <span class="dot" onclick="currentSlide(3)"></span>
-        <span class="dot" onclick="currentSlide(4)"></span>
-        <span class="dot" onclick="currentSlide(5)"></span>
+        {{!-- <span class="dot" onclick="currentSlide(5)"></span> --}}
     </div>
 </div>
 <div class="control-buttons">
