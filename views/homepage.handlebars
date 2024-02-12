@@ -1,9 +1,30 @@
-<header>
-    <h1>W.E.G Project</h1>
-</header>
-<body>
-    <nav></nav>
-    <nav></nav>
-    <nav></nav>
-    <script src="./js/test.js"></script>
-</body>
+<div class="container">
+    <h1 class="slideshow-title">AI Generated Story Images</h1>
+    <div class="slideshow-container">
+        {{#each images as |image|}}
+        <div class="slides fade">
+            <div class="image-container">
+                <image src={{image.url}} class="slideshow-image">
+                    <p class="numbertext">{{image.story_id}}</p>
+                </image>
+                <p class="caption">{{image.image_description}}</p>
+            </div>
+        </div>
+        {{/each}}
+        <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <div class="dot-container" style="text-align:center">
+        <span class="dot" onclick="currentSlide(0)"></span>
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        {{!-- <span class="dot" onclick="currentSlide(5)"></span> --}}
+    </div>
+</div>
+<div class="control-buttons">
+    <button class="select-button" id="story-button"><h1>Story</h1></button>
+    <button class="select-button" id="game-button"><h1>Game</h1></button>
+    <button class="select-button" id="quiz-button"><h1>Quiz</h1></button>
+</div>
+<script src="/js/index.js"></script>

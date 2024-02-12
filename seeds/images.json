@@ -1,14 +1,22 @@
 [
     {
-        "images_id": 1,
-        "url": "../public/images/Leonardo_Creative_A_forest_in_the_mountains_0.jpg"
+        "story_id": 1,
+        "url": "./images/Leonardo_Creative_A_forest_in_the_mountains_0.jpg",
+        "image_description": "Pine Trees Along a Forest Path"
     },
     {
-        "images_id": 2,
-        "url": "../public/images/Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg"
+        "story_id": 2,
+        "url": "./images/Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg",
+        "image_description": "Forest Path on a Hillside"
     },
     {
-        "images_id": 3,
-        "url": "../public/images/Leonardo_Creative_A_forest_in_the_mountains_0(2).jpg"
+        "story_id": 3,
+        "url": "./images/Leonardo_Creative_A_forest_in_the_mountains_0(2).jpg",
+        "image_description": "Forest Path through a Misty Wood"
+    },
+    {
+        "story_id": 4,
+        "url": "./images/Leonardo_Creative_A_forest_in_the_mountains_0(3).jpg",
+        "image_description": "Misty Forest"
     }
 ]

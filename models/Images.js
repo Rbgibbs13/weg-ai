@@ -18,7 +18,12 @@ Images.init(
                 isUrl: true,
             }
         },
-        images_id: {
+        //Get any name data from fetch
+        image_description: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        story_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,

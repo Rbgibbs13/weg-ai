@@ -13,12 +13,12 @@ Story.belongsTo(User, {
 });
 
 Story.hasOne(Images, {
-    foreignKey: 'images_id',
+    foreignKey: 'story_id',
     onDelete: 'CASCADE'
 });
 
 Images.belongsTo(Story, {
-    foreignKey: 'images_id'
+    foreignKey: 'story_id'
 });
 
 Story.hasOne(Prompts, {

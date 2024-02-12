@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet"><link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
-    <section>
+    <header>
         <div class="hero">
             <div class="hero-textbody">
                 <h1 class="hero-title">Story Generator</h1>
@@ -22,46 +22,38 @@
                 </ul>
             </div>
         </div>
-    </section>
+    </header>
     <div class="container">
+        <h1 class="slideshow-title">AI Generated Story Images</h1>
         <div class="slideshow-container">
-            <h1 class="slideshow-title"></h1>
             <div class="slides fade">
-                <div class="count-text">
-                    <p class="numbertext">1 / 4</p>
-                </div>
                 <div class="image-container">
                     <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg" class="slideshow-image">
-                        <p class="caption">Photo</p>
+                        <p class="numbertext">1 / 4</p>
+                        <p class="caption">Mountain Forest Path</p>
                     </image>
                 </div>
             </div>
             <div class="slides fade">
-                <div class="count-text">
-                    <p class="numbertext">2 / 4</p>
-                </div>
                 <div class="image-container">
                     <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(2).jpg" class="slideshow-image">
+                        <p class="numbertext">2 / 4</p>
                         <p class="caption">Photo</p>
                     </image>
                 </div>
             </div>
             <div class="slides fade">
-                <div class="count-text">
-                    <p class="numbertext">3 / 4</p>
-                </div>
                 <div class="image-container">
                     <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(3).jpg" class="slideshow-image">
+                        <p class="numbertext">3 / 4</p>
                         <p class="caption">Photo</p>
                     </image>
                 </div>
             </div>
             <div class="slides fade">
-                <div class="count-text">
-                    <p class="numbertext">4 / 4</p>
-                </div>
                 <div class="image-container">
                     <image src="./images/Leonardo_Creative_A_forest_in_the_mountains_0(4).jpg" class="slideshow-image">
+                        <p class="numbertext">4 / 4</p>
                         <p class="caption">Photo</p>
                     </image>
                 </div>
@@ -79,7 +71,6 @@
             <a class="prev btn" onclick="plusSlides(-1)">&#10094;</a>
             <a class="next btn" onclick="plusSlides(1)">&#10095;</a>
             
-            
         </div>
         <div style="text-align:center">
             <span class="dot" onclick="currentSlide(1)"></span>
@@ -94,6 +85,7 @@
         <button class="select-button" id="game-button"><h1>Game</h1></button>
         <button class="select-button" id="quiz-button"><h1>Quiz</h1></button>
     </div>
+    
     <script src="./js/index.js"></script>
 </body>
 </html>
