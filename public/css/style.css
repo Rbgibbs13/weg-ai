@@ -444,11 +444,9 @@ section::after {
 }
 .even {
     color: var(--blue-color);
-    text-shadow: .2rem .2rem var(--grey-color);
 }
 .odd {
     color: var(--orange-color);
-    text-shadow: .2rem .2rem var(--grey-color);
 }
 .theme-block {
     display: flex;

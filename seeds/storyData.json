@@ -1,18 +1,18 @@
 [
     {
-        "story_Name":"Princess Momonoke",
+        "story_name":"Princess Momonoke",
         "user_id": 1
     },
     {
-        "story_Name":"My neighbor Todoro",
+        "story_name":"My neighbor Todoro",
         "user_id": 2
     },
     {
-        "story_Name":"Howls Moving Castle",
+        "story_name":"Howls Moving Castle",
         "user_id": 3
     },
     {
-        "story_Name":"Secret World of Ariety",
+        "story_name":"Secret World of Ariety",
         "user_id": 4
     }
 ]

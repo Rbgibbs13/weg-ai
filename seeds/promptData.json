@@ -1,34 +1,38 @@
 [
     {
+        "scenario": "Test Scenario 1",
         "prompt_one": "Test Prompt 1-1",
         "prompt_two": "Test Prompt 1-2",
         "prompt_three": "Test Prompt 1-3",
         "prompt_four": "Test four 1-4",
         "selected_prompt": 0,
-        "prompts_id": 1
+        "story_id": 1
     },
     {
+        "scenario": "Test Scenario 2",
         "prompt_one": "Test Prompt 2-1",
         "prompt_two": "Test Prompt 2-2",
         "prompt_three": "Test Prompt 2-3",
         "prompt_four": "Test four 2-4",
         "selected_prompt": 0,
-        "prompts_id": 2
+        "story_id": 2
     },
     {
+        "scenario": "Test Scenario 3",
         "prompt_one": "Test Prompt 3-1",
         "prompt_two": "Test Prompt 3-2",
         "prompt_three": "Test Prompt 3-3",
         "prompt_four": "Test four 3-4",
         "selected_prompt": 0,
-        "prompts_id": 3
+        "story_id": 3
     },
     {
+        "scenario": "Test Scenario 4",
         "prompt_one": "Test Prompt 4-1",
         "prompt_two": "Test Prompt 4-2",
         "prompt_three": "Test Prompt 4-3",
         "prompt_four": "Test four 4-4",
         "selected_prompt": 0,
-        "prompts_id": 4
+        "story_id": 4
     }
 ]

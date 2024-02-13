@@ -14,28 +14,14 @@ const themeEl = document.querySelector(".theme-block");
 const themeInputEl = document.querySelector('#custom-theme');
 const nameInputEl = document.querySelector("#custom-name");
 
-let theme = "";
+let theme;
 let charName = "John Doe";
+let storeScenario = "";
+let storePrompts = [];
+let stored = false;
+const storyID = Math.floor(Math.random() * 100000);
 const charTime = 40;
 const startScenario = `"Your scenario is being generated, please wait patiently...."`
-
-let realBody = {
-  height: 512,
-  width: 512,
-  modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-  prompt: 'A forest in the mountains',
-  alchemy: true,
-  photoReal: true,
-  photoRealStrength: 0.45,
-  presetStyle: 'ENVIRONMENT'
-};
-
-let cartoonBody = {
-  height: 512,
-  width: 512,
-  modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-  prompt: 'Rainforest cafe',
-};
 
 const realisticOptions = {
   method: 'POST',
@@ -44,10 +30,17 @@ const realisticOptions = {
     'content-type': 'application/json',
     authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
   },
-  body: JSON.stringify(realBody)
+  body: JSON.stringify({
+    height: 512,
+    width: 512,
+    modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+    prompt: 'A forest in the mountains',
+    alchemy: true,
+    photoReal: true,
+    photoRealStrength: 0.45,
+    presetStyle: 'ENVIRONMENT'
+  })
 };
-
-
 
 const getOptions = {
   method: 'GET',
@@ -65,6 +58,9 @@ const hideElements = () => {
 
 const startGame = async() => {
   //Generate Image and Prompts here
+  if(!theme) { 
+    alert("Select a Theme");
+    return; }
   themeEl.style.display = "none";
   responseEl.style.display = "flex";
   gameTitleEl.innerHTML = `${charName} ${theme} Adventure!`;
@@ -95,29 +91,35 @@ const setTheme = async (input) => {
     return;
   }
   gameTitleEl.innerHTML = theme;
-  //generateImage();
-
-  // await writeText(promptArray[0], responseTextEl).then(() => {
-  //   writePrompts();
-  // });
 };
 
 const selectPrompt = async(index) => {
   //Store the CHOICE data and image here
   //Use CHOICE to generate new SCENARIO, IMAGE, and four PROMPTS
-  const postData = await fetch('../api/prompt/save', {
+  if(stored) { return; }
+  console.log("PROMPT SELECTED");
+  let struct = {
+    "theme" : theme,
+    "scenario" : storeScenario,
+    "prompt_one" : storePrompts[0],
+    "prompt_two" : storePrompts[1],
+    "prompt_three" : storePrompts[2],
+    "prompt_four" : storePrompts[3],
+    "selected_prompt" : index,
+    "user_id" : storyID,
+  };
+  console.log(struct);
+  const postData = await fetch('../api/prompts/save', {
     method: 'POST',
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data.choices[0].message.content),
+    body: JSON.stringify(struct),
   });
-
-  console.log(promptText[index].innerHTML);
 };
 
 const generatePrompts = async(themeIN) => {
-  const scenario = await fetch(`../api/prompt/generate/${themeIN}`, {
+  const scenario = await fetch(`../api/prompts/generate/${themeIN}`, {
     method: 'POST',
     mode: "no-cors",
     headers: {
@@ -144,10 +146,16 @@ const generatePrompts = async(themeIN) => {
     })
   };
   
-  await generateImage(cartoonOptions);
+  if(charName === "Garrett Gibbs") {
+    await generateImage(realisticOptions);
+  } else {
+    await generateImage(cartoonOptions);
+  }
+
+  storeScenario = data.choices[0].message.content;
   writeText(data.choices[0].message.content, responseTextEl);
 
-  const answers = await fetch(`/api/prompt/generate`, {
+  const answers = await fetch(`/api/prompts/generate`, {
     method: 'POST',
     mode: 'no-cors',
     headers: {
@@ -172,7 +180,6 @@ const generateImage = async(input) => {
 };
 
 const getImage = async(gID) => {
-    console.log(typeof(gID));
     const imgRaw = await fetch(`https://cloud.leonardo.ai/api/rest/v1/generations/${gID}`, getOptions);
     const convert = await imgRaw.json();
 
@@ -182,10 +189,31 @@ const getImage = async(gID) => {
         imageArray.push(location[i].url);
     }
 
-    console.log(imageArray);
     responseImageEl.src = imageArray[0];
+    saveImages(imageArray);
     imageCarousel(imageArray);
 };
+
+const saveImages = async(images) => {
+  let randInt = Math.floor(Math.random() * 100000);
+  for(let i = 0; i < images.length; i++) {
+    randInt++;
+    const struct = {
+      "id": randInt,
+      "url": images[i],
+      "image_description": `${theme} Adventure`,
+      "story_id": 1,
+    }
+    console.log(struct);
+    const postImages = await fetch("../api/images/save", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(struct),
+    });
+  };
+}
 
 const imageCarousel = (images) => {
   let index = 0;
@@ -197,6 +225,7 @@ const imageCarousel = (images) => {
 }
 
 const populateOption = (selections) => {
+  storePrompts = selections;
   const optionBlockEl = document.querySelector(".option-block");
   const textArray = [];
   for(let i = 0; i < selections.length; i++) {
@@ -210,8 +239,12 @@ const populateOption = (selections) => {
 
     if(i % 2 === 0) { optionText.classList.add("even"); }
     else { optionText.classList.add("odd"); }
+    
+    optionButton.addEventListener("click", (e) => {
+      selectPrompt(i);
+    });
 
-    optionText.textContent = selections[i];
+    // optionText.textContent = selections[i];
     textArray.push(optionText);
     optionDiv.append(optionButton);
     optionDiv.append(optionText);

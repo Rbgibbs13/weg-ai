@@ -22,12 +22,12 @@ Images.belongsTo(Story, {
 });
 
 Story.hasOne(Prompts, {
-    foreignKey: 'prompts_id',
+    foreignKey: 'story_id',
     onDelete: 'CASCADE'
 });
 
 Prompts.belongsTo(Story, {
-    foreignKey: 'prompts_id'
+    foreignKey: 'story_id'
 });
 
 module.exports = { User, Story, Prompts, Images};
