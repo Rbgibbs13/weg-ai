@@ -9,14 +9,14 @@ We used the required ```express.js``` and ```node.js``` to set up our routes and
 We used ```mysql``` to communicate with our database.\
 We used ```sequelize``` to handle our data and database.\
 We used ```handlebars``` with express as our template engine.\
-we use ```dotenv``` to store environment variables.\
+We use ```dotenv``` to store environment variables.\
 We imported and intend to use ```fs``` file saver so users can download and store their files locally.\
 We imported and intend to use ```uuid``` and \
 We imported ```bcrypt``` and ```express-sessions``` to authorize, authenticate, and encrypt users and their data.\
-```uuid``` was also imported and will be used to generate unique ID's for users when we get validation running.\
+```uuid``` was also imported and will be used to generate unique ID's for users when we get validation running.
 
 # Technologies
-The main two technologies we used were ```openAI ChatGPT v3.5``` and ```Leonardo AI``` as an image generator for our prompts/scenarios/images.
+The main two technologies we used were ```openAI ChatGPT v3.5``` and ```Leonardo AI``` as an image generator for our prompts/scenarios/images.\\
 We tried to also use ```animejs``` but ran out of time. This tech would be used as a placeholder or splash screen while the other data is being generated.
 
 # Screenshot
