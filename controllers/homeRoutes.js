@@ -64,11 +64,12 @@ router.get('/profile', authInput, async (req, res) => {
   });
 
 //localhost:3001/login
-router.get('/login', authInput, (req, res) => {
+//needs authInput to function correctly once login and profile are set up
+router.get('/login', (req, res) => {
     res.render('login');
 
     if(req.session.logged_in) {
-        res.redirect('/');
+        res.redirect('/profile');
         return;
     }
 

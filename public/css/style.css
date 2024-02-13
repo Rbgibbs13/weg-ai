@@ -36,7 +36,7 @@ section::after {
     background-repeat: no-repeat;
 }
 .hero {
-    background-image: linear-gradient(rgba(229, 122, 15, .2), rgb(55, 55, 55, 1)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
+    background-image: linear-gradient(rgba(255, 128, 0, 0.355), rgb(55, 55, 55, 1)), url("../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg");
     background-size: cover;
     background-position: center;
     box-shadow: 0rem .4rem var(--drop-shadow-color);
@@ -51,6 +51,28 @@ section::after {
     justify-content: space-between;
     height: 10rem;
     width: 100%;
+}
+.construction-div {
+    display: flex;
+    flex-direction: column;
+    margin: auto 5%;
+    height: 60rem;
+    width: 90%;
+}
+.construction-title {
+    color: var(--orange-color);
+    font-family: var(--salsa-font-family);
+    font-size: 400%;
+    margin: auto 1%;
+    height: 100%;
+    width: 100%;
+    text-shadow: .3rem .3rem var(--drop-text-color);
+    text-align: center;
+}
+.construction-image {
+    height: 40rem;
+    width: 40rem;
+    margin: auto;
 }
 .hero-title {
     color: rgb(255, 255, 255);
