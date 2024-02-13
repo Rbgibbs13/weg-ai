@@ -11,6 +11,10 @@ Prompts.init(
             primaryKey: true,
             autoIncrement: true,
         },
+        scenario: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         prompt_one: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -35,12 +39,13 @@ Prompts.init(
                 max: 3,
             },
         },
-        prompts_id: {
+        story_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
             unique: true,
-            validate : {
-                isNumeric: true,
+            references: {
+                model: "story",
+                key: "id"
             }
         },
     },

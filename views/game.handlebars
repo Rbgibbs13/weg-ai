@@ -1,6 +1,11 @@
-<div class="container">
+<div class="game-container">
     <h1 id="game-title">Select a Theme!</h1>
     <div class="theme-block">
+    <hr class="line-break">
+        <div class="theme-container">
+            <label for="custom-theme">Custom Theme: </label>
+            <input type="text" placeholder="Your Theme!" minlength="1" maxlength="20" id="custom-theme">
+        </div>
         <div class="theme-container">
             <button class="theme-button" id="btnOne"></button>
             <p class="option-text">Space</p>
@@ -29,36 +34,28 @@
             <button class="theme-button" id="btnOne"></button>
             <p class="option-text">Fantasy</p>
         </div>
+        <hr class="line-break">
+        <h1 id="character-title">Charcter Name!</h1>
         <div class="theme-container">
-            <label for="custom-theme">Custom Theme: </label>
-            <input type="text" placeholder="Your Theme!" minlength="1" maxlength="20" id="custom-theme">
+            <label for="custom-name">Character Name: </label>
+            <input type="text" placeholder="Your Name!" minlength="1" maxlength="20" id="custom-name">
+        </div>
+        <hr class="line-break">
+        <div class="theme-container">
+            <button class="submit-button"><p class="option-text">Submit</p></button>
         </div>
     </div>
 
     <div class="response-block">
         <div class="response-image-container fade">
             <image src="../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg" class="response-image"></image>
-            <p class="response-text">You fall down the mountain</p>
+            <p class="response-text"></p>
         </div>
     </div>
 
     <div class="option-block">
-        <div class="option-container">
-            <button class="option-button" id="btnOne"></button>
-            <p class="option-text">Text for First Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnTwo"></button>
-            <p class="option-text">Text for Second Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnThree"></button>
-            <p class="option-text">Text for Third Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnFour"></button>
-            <p class="option-text">Text for Fourth Option</p>
-        </div>
+        
     </div>
 </div>
-<script src="/js/test.js"></script>
+<script type="module" src="/js/test.js"></script>
+<script type="module" src="/js/index.js"></script>

@@ -7,7 +7,7 @@
                 <image src={{image.url}} class="slideshow-image">
                     <p class="numbertext">{{image.story_id}}</p>
                 </image>
-                <p class="caption">{{image.image_description}}</p>
+                {{!-- <p class="caption">{{image.image_description}}</p> --}}
             </div>
         </div>
         {{/each}}
@@ -19,12 +19,11 @@
         <span class="dot" onclick="currentSlide(1)"></span>
         <span class="dot" onclick="currentSlide(2)"></span>
         <span class="dot" onclick="currentSlide(3)"></span>
-        {{!-- <span class="dot" onclick="currentSlide(5)"></span> --}}
     </div>
 </div>
 <div class="control-buttons">
-    <button class="select-button" id="story-button"><h1>Story</h1></button>
-    <button class="select-button" id="game-button"><h1>Game</h1></button>
-    <button class="select-button" id="quiz-button"><h1>Quiz</h1></button>
+    <a href="/story" class="select-button" id="story-button"><h1>Story</h1></a>
+    <a href="/game" class="select-button" id="game-button"><h1>Game</h1></a>
+    <a href="/quiz" class="select-button" id="quiz-button"><h1>Quiz</h1></a>
 </div>
 <script src="/js/index.js"></script>

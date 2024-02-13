@@ -11,7 +11,7 @@ Story.init(
             primaryKey: true,
             autoIncrement: true,
         },
-        story_Name: {
+        story_name: {
             type: DataTypes.STRING,
             allowNull: false,
         },
@@ -23,7 +23,6 @@ Story.init(
         user_id: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
             validate: {
                 isNumeric: true,
             },

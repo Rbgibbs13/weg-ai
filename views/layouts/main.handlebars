@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;1,300&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Protest+Revolution&family=Protest+Riot&family=Salsa&family=Source+Code+Pro:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="./css/style.css">
 
 </head>
@@ -19,14 +20,15 @@
                 <h1 class="hero-title">Story Generator</h1>
                 <p class="hero-desc">Go on an adventure!  Create your own story!</p>
                 <div class="menu-container">
-                    <a href="/" class="home-button"><h1>Home</h1></a>
-                    <button class="dropdown-button"><image class="prof-image" src="/images/prof-pic.png"></image></button>
+                    <a href="/" class="home-button"><span class="material-symbols-outlined">home</span></a>
+                    <a href="/login" class="home-button"><span class="material-symbols-outlined">person</span></a>
+                    <button class="dropdown-button"><span class="material-symbols-outlined">list</span></button>
                     <div class="dropdown-container">
                         <ul class="hero-nav">
-                            <li class="nav-item"><a href="/login" class="list-button">Login</a></li>
                             <li class="nav-item"><a href="/story" class="list-button">Story</a></li>
                             <li class="nav-item"><a href="/game" class="list-button">Game</a></li>
                             <li class="nav-item"><a href="/quiz" class="list-button">Quiz</a></li>
+                            <li class="nav-item"><button class="list-button" id="close-button">Exit</button></li>
                         </ul>
                     </div>
                 </div>

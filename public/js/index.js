@@ -5,11 +5,12 @@ const quizBtnEl = document.querySelector("#quiz-button");
 const dropBtnEl = document.querySelector(".dropdown-button");
 const imageHolderArrayEl = document.querySelectorAll('.slideshow-image');
 const slides = document.getElementsByClassName("slides");
+const closeBtnEl = document.querySelector("#close-button");
+
+const filePath = window.location.pathname;
+const page = filePath.split("/").pop();
 
 const path = "../images/";
-let cycleImageIndex = 0;
-let slideIndex = 0;
-
 let localImages = [
 path + "Leonardo_Creative_A_forest_in_the_mountains_0.jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg",
@@ -23,7 +24,39 @@ path + "Leonardo_Creative_A_forest_in_the_mountains_1(3).jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3.jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3(1).jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3(2).jpg",
-path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",];
+path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",
+path + "cherry-blossom-fight.jpg",
+path + "cherry-blossom-fight-alt.jpg",
+path + "cherry-blossom.jpg",
+path + "desert_warfare.jpg",
+path + "desert_warfare_2.jpg",
+path + "tropical_beach.jpg",];
+
+let splashImages = [
+path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",
+path + "cherry-blossom-fight.jpg",
+path + "cherry-blossom-fight-alt.jpg",
+path + "cherry-blossom.jpg",
+path + "desert_warfare.jpg",
+path + "desert_warfare_2.jpg",
+path + "tropical_beach.jpg",
+];
+
+let slideIndex = 0;
+let cycleImageIndex = Math.floor(Math.random() * localImages.length);
+let responseImageIndex = Math.floor(Math.random() * splashImages.length);
+
+if(document.querySelector(".response-image")) { document.querySelector(".response-image").src = splashImages[responseImageIndex]; }
+const getStoredImages = async () => {
+    const storedImages = await fetch('../api/images', {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+          },
+      });
+    
+    const images = await storedImages.json();
+}
 
 const plusSlides = (n) => {
   showSlides(slideIndex += n);
@@ -33,10 +66,11 @@ const currentSlide = (n) => {
   showSlides(slideIndex = n);
 }
 
-const showSlides = (n) => {
+const showSlides = async (n) => {
   let i;
   let dots = document.getElementsByClassName("dot");
 
+  if(!slides || !dots) { return; }
   if (n >= slides.length) {slideIndex = 0};
   if (n < 0) {slideIndex = slides.length - 1};
 
@@ -90,72 +124,20 @@ const fadeInEffect = (element) => {
             clearInterval(fadeIn);
         }
     }, 40);
-}
-
-const goHome = async() => {
-    const game = await fetch('/', {
-        method: 'GET',
-    }).then((res) => {
-        res.json();
-    }).then((data) => {
-        console.log("Get success HOME route");
-    }).catch((error) => {
-        res.status(404).error(error);
-    });
-};
-
-const startGame = async() => {
-    await fetch('/game', {
-        method: 'GET',
-    }).then((res) => {
-        res.json();
-    }).then((data) => {
-        console.log("Get success GAME route");
-    }).catch((error) => {
-        res.status(404).error(error);
-    });
-};
-
-const startStory = async() => {
-    await fetch('/story', {
-        method: 'GET',
-    }).then((res) => {
-        res.json();
-    }).then((data) => {
-        console.log("Get success story route");
-    }).catch((error) => {
-        res.status(404).error(error);
-    });
-};
-
-const startQuiz = async() => {
-    await fetch('/quiz', {
-        method: 'GET',
-    }).then((res) => {
-        res.json();
-    }).then((data) => {
-        console.log("Get success quiz route");
-    }).catch((error) => {
-        res.status(404).error(error);
-    });
 };
 
 dropBtnEl.addEventListener("click", (e) => {
     e.preventDefault();
     document.querySelector(".dropdown-container").classList.toggle("show");
 });
-gameBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startGame();
-});
-storyBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startStory();
-});
-quizBtnEl.addEventListener("click", (e) => {
-    e.preventDefault();
-    startQuiz();
-});
 
-showSlides(slideIndex);
-cycleImages();
+closeBtnEl.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelector(".dropdown-container").classList.toggle("show");
+})
+
+getStoredImages();
+if(page == "") {
+    showSlides(slideIndex);
+    cycleImages();
+}

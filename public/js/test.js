@@ -1,38 +1,27 @@
-console.log("HELLO GAME WORLD");
-// const OpenAI = require("openai");
-// const openai = new OpenAI({ apiKey: process.env['OPENAI_API_KEY'], });
 const gameTitleEl = document.querySelector('#game-title');
-const responseText = document.querySelector(".response-text");
+const charTitleEl = document.querySelector("#character-title");
+const promptText = document.querySelectorAll(".option-text");
 const promptBtns = document.querySelectorAll(".option-button");
 const themeBtns = document.querySelectorAll(".theme-button");
-const promptText = document.querySelectorAll(".option-text");
-const themeEl = document.querySelector(".theme-block");
+const submitBtnEl = document.querySelector('.submit-button');
+
 const responseEl = document.querySelector('.response-block');
+const responseTextEl = document.querySelector(".response-text");
+const responseImageEl = document.querySelector('.response-image');
 const optionEl = document.querySelector('.option-block');
+
+const themeEl = document.querySelector(".theme-block");
 const themeInputEl = document.querySelector('#custom-theme');
+const nameInputEl = document.querySelector("#custom-name");
 
-let theme = "";
-const periodTime = 2000;
-const spaceTime = 250;
-const charTime = 100;
-
-const test = `"You fall down the mountain. Then you see a shadow in the distance. <br>Testing line break."`
-
-const gptModel = "gpt-3.5-turbo";
-let promptMessages = [
-  {
-    "role": "system",
-    "content": "You are an expert storyteller."
-  },
-  {
-    "role": "system",
-    "content": `You write stories about ${theme} adventures.`,
-  },
-  {
-    "role": "user", 
-    "content": "Write a jingle for an underwear company."
-  },
-];
+let theme;
+let charName = "John Doe";
+let storeScenario = "";
+let storePrompts = [];
+let stored = false;
+const storyID = Math.floor(Math.random() * 100000);
+const charTime = 40;
+const startScenario = `"Your scenario is being generated, please wait patiently...."`
 
 const realisticOptions = {
   method: 'POST',
@@ -53,22 +42,6 @@ const realisticOptions = {
   })
 };
 
-const cartoonOptions = {
-  method: 'POST',
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
-  },
-  body: JSON.stringify({
-    height: 512,
-    width: 512,
-    modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-    prompt: 'A forest in the mountains',
-    alchemy: true,
-  })
-};
-
 const getOptions = {
   method: 'GET',
   headers: {
@@ -83,66 +56,241 @@ const hideElements = () => {
   optionEl.style.display = "none";
 }
 
-const selectTheme = async (selection) => {
-  theme = selection.innerHTML;
-  console.log(selection);
-  gameTitleEl.innerHTML = theme + " Game!";
-  themeEl.style.display = "none";
-  responseEl.style.display = "flex";
-  optionEl.style.display = "flex";
+const startGame = async() => {
   //Generate Image and Prompts here
-  //generatePrompts();
-  //generateImage();
-
-  await writeText(test, responseText).then(() => {
-    writePrompts();
-  });
-};
-
-const writePrompts = async() => {
-  for(let i = 0; i < promptText.length; i++) {
-    writeText(promptText[i].innerHTML, promptText[i]);
-  };
-};
-
-const setTheme = (input) => {
-  theme = input;
+  if(!theme) { 
+    alert("Select a Theme");
+    return; }
   themeEl.style.display = "none";
   responseEl.style.display = "flex";
-  optionEl.style.display = "flex";
-
-  writeText(test, responseText).then(() => {
-    //Generate Image here and
-    
-  });
-  for(let i = 0; i < promptText.length; i++) {
-    writeText(promptText[i].innerHTML, promptText[i]);
-  };
+  gameTitleEl.innerHTML = `${charName} ${theme} Adventure!`;
+  
+  writeText(startScenario, responseTextEl);
+  await generatePrompts(theme);
 };
 
-const selectPrompt = (index) => {
+const setName = async(input) => {
+  let my_name = input.split(" ");
+  for(let i = 0; i < my_name.length; i++) {
+    my_name[i] = my_name[i].charAt(0).toUpperCase() + my_name[i].slice(1);
+  }
+  my_name = my_name.join(" ");
+  charName = my_name;
+  if(charName.length < 1) {
+    gameTitleEl.innerHTML = "Character Name!";
+    return;
+  }
+  charTitleEl.innerHTML = charName;
+}
+
+const setTheme = async (input) => {
+  theme = input;
+  theme = theme.charAt(0).toUpperCase() + theme.slice(1);
+  if(theme.length < 1) {
+    gameTitleEl.innerHTML = "Select a Theme!";
+    return;
+  }
+  gameTitleEl.innerHTML = theme;
+};
+
+const selectPrompt = async(index) => {
   //Store the CHOICE data and image here
   //Use CHOICE to generate new SCENARIO, IMAGE, and four PROMPTS
-  console.log(promptText[index].innerHTML);
+  optionEl.style.display = "none";
+  if(stored) { return; }
+  stored = true;
+  let struct = {
+    "theme" : theme,
+    "scenario" : storeScenario,
+    "prompt_one" : storePrompts[0],
+    "prompt_two" : storePrompts[1],
+    "prompt_three" : storePrompts[2],
+    "prompt_four" : storePrompts[3],
+    "selected_prompt" : index,
+    "user_id" : 1,
+  };
+  console.log(struct);
+  const postData = await fetch('../api/prompts/save', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(struct),
+  });
+  let selectedPrompt;
+  if(index == 0) {
+    selectedPrompt = struct.prompt_one;
+  } else if(index == 1) {
+    selectedPrompt = struct.prompt_two;
+  } else if(index == 2) {
+    selectedPrompt = struct.prompt_three;
+  } else {
+    selectPrompt = struct.prompt_four;
+  }
+  await generateNext(storeScenario, selectedPrompt);
 };
 
-const generatePrompts = async() => {
-  const prompt = await openai.chat.completions.create({
-        messages: promptMessages,
-        model: gptModel,
-      });
-  console.log(prompt);
+const generateNext = async(scenarioIN, promptIN) => {
+  const struct = {
+    "scenario": scenarioIN,
+    "prompt": promptIN,
+  };
+  const scenario = await fetch('../api/prompts/generate/next' , {
+    method: 'POST',
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(struct),
+  });
+
+  const data = await scenario.json();
+  let bodyData = `${theme} environment. `
+  bodyData += data.choices[0].message.content.split(". ")[0];
+
+  const cartoonOptions = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+    },
+    body: JSON.stringify({
+      height: 512,
+      width: 512,
+      modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+      prompt: bodyData
+    })
+  };
+  
+  if(charName === "Garrett Gibbs") {
+    const realisticOptions = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+      },
+      body: JSON.stringify({
+        height: 512,
+        width: 512,
+        modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+        prompt: bodyData,
+        alchemy: true,
+        photoReal: true,
+        photoRealStrength: 0.45,
+        presetStyle: 'ENVIRONMENT'
+      })
+    };
+    await generateImage(realisticOptions);
+  } else {
+    await generateImage(cartoonOptions);
+  }
+
+  storeScenario = data.choices[0].message.content;
+  writeText(data.choices[0].message.content, responseTextEl);
+
+  const answers = await fetch(`/api/prompts/generate`, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const answerData = await answers.json();
+  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return true});
+  setTimeout(() => {
+    optionEl.style.display = "flex";
+    populateOption(splitArray);
+  }, 30000);
 };
 
-const generateImage = async() => {
-    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', realisticOptions);
+const generatePrompts = async(themeIN) => {
+  await fetch(`../api/prompts/${charName.split(" ")[0]}`, {
+    method: 'POST',
+  });
+
+  const scenario = await fetch(`../api/prompts/generate/${themeIN}`, {
+    method: 'POST',
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await scenario.json();
+  let bodyData = `${theme} environment. `
+  bodyData += data.choices[0].message.content.split(". ")[0];
+
+  const cartoonOptions = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+    },
+    body: JSON.stringify({
+      height: 512,
+      width: 512,
+      modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+      prompt: bodyData
+    })
+  };
+  
+  if(charName === "Garrett Gibbs") {
+    const realisticOptions = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+      },
+      body: JSON.stringify({
+        height: 512,
+        width: 512,
+        modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+        prompt: bodyData,
+        alchemy: true,
+        photoReal: true,
+        photoRealStrength: 0.45,
+        presetStyle: 'ENVIRONMENT'
+      })
+    };
+
+    await generateImage(realisticOptions);
+  } else {
+    await generateImage(cartoonOptions);
+  }
+
+  storeScenario = data.choices[0].message.content;
+  writeText(data.choices[0].message.content, responseTextEl);
+
+  const answers = await fetch(`/api/prompts/generate`, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const answerData = await answers.json();
+  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return true});
+  setTimeout(() => {
+    optionEl.style.display = "flex";
+    populateOption(splitArray);
+  }, 30000);
+};
+
+const generateImage = async(input) => {
+    console.log(input);
+    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', input);
     let gID = await rawData.json();
     let generatedID = gID.sdGenerationJob.generationId;
     setTimeout(() => getImage(`${generatedID}`), 10000);
 };
 
 const getImage = async(gID) => {
-    console.log(typeof(gID));
     const imgRaw = await fetch(`https://cloud.leonardo.ai/api/rest/v1/generations/${gID}`, getOptions);
     const convert = await imgRaw.json();
 
@@ -151,39 +299,88 @@ const getImage = async(gID) => {
     for(let i = 0; i < location.length; i++) {
         imageArray.push(location[i].url);
     }
-    console.log(imageArray);
+
+    responseImageEl.src = imageArray[0];
+    saveImages(imageArray);
+    imageCarousel(imageArray);
+};
+
+const saveImages = async(images) => {
+  let randInt = Math.floor(Math.random() * 100000);
+  for(let i = 0; i < images.length; i++) {
+    randInt++;
+    const struct = {
+      "id": randInt,
+      "url": images[i],
+      "image_description": `${theme} Adventure`,
+      "story_id": 1,
+    }
+    const postImages = await fetch("../api/images/save", {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(struct),
+    });
+  };
+}
+
+const imageCarousel = (images) => {
+  let index = 0;
+  setInterval(() => {
+    responseImageEl.src = images[index];
+    index++;
+    if(index > images.length - 1) { index = 0; }
+  }, 5000);
+}
+
+const populateOption = (selections) => {
+  storePrompts = selections;
+  const optionBlockEl = document.querySelector(".option-block");
+  const textArray = [];
+  for(let i = 0; i < selections.length; i++) {
+    const optionDiv = document.createElement("div");
+    const optionButton = document.createElement("button");
+    const optionText = document.createElement("p");
+
+    optionDiv.classList.add("option-container");
+    optionButton.classList.add("option-button");
+    optionText.classList.add("option-text");
+
+    if(i % 2 === 0) { optionText.classList.add("even"); }
+    else { optionText.classList.add("odd"); }
+    
+    optionButton.addEventListener("click", (e) => {
+      selectPrompt(i);
+    });
+
+    // optionText.textContent = selections[i];
+    textArray.push(optionText);
+    optionDiv.append(optionButton);
+    optionDiv.append(optionText);
+    optionBlockEl.append(optionDiv);
+  };
+  writePrompts(selections, textArray);
+};
+
+const writePrompts = async(inputs, targets) => {
+  for(let i = 0; i < inputs.length; i++) {
+    await writeText(inputs[i], targets[i]);
+  };
 };
 
 const writeText = async(input, target) => {
   let copy = input;
   let build = "";
   let index = 0;
+
   const printCharacter = async() => {
-    if(copy[index] === " ") {
-      const spaceBuild = setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, spaceTime);
-    } else if(copy[index] === ".") {
-      const periodBuild = setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, periodTime);
-    } else if(copy[index] === "<") {
-      setInterval(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, 2000);
-    } else {
-      const charBuild = setTimeout(() => {
-        build += copy.charAt(index);
-        index++;
-        if(index <= copy.length) { printCharacter(); }
-      }, charTime);
-    }
+
+    const charBuild = setTimeout(() => {
+      build += copy.charAt(index);
+      index++;
+      if(index <= copy.length) { printCharacter(); }
+    }, charTime);
 
     target.innerHTML = build;
   };
@@ -191,20 +388,32 @@ const writeText = async(input, target) => {
   printCharacter();
 };
 
-
+//PROMPT button listeners
 for(let i = 0; i < promptBtns.length; i++) {
   promptBtns[i].addEventListener("click", (e) => {
     selectPrompt(i);
   });
 };
-themeInputEl.addEventListener("submit", (e) => {
-  e.preventDefault();
-  selectTheme(themeInputEl.parentElement.children[1]);
-});
+//THEME Button Listeners
 for(let i = 0; i < themeBtns.length; i++) {
-  themeBtns[i].addEventListener("click", (e) => {
-    selectTheme(themeBtns[i].parentElement.children[1]);
+  themeBtns[i].addEventListener("click", async (e) => {
+    await setTheme(themeBtns[i].parentElement.children[1].innerHTML);
   });
 };
+//THEME INPUT listener
+themeInputEl.addEventListener("input", (e) => {
+  e.preventDefault();
+  setTheme(themeInputEl.value);
+});
+//NAME listener
+nameInputEl.addEventListener("input", (e) => {
+  e.preventDefault();
+  setName(nameInputEl.value);
+});
+//SUBMIT listener
+submitBtnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  startGame();
+});
 
 hideElements();
