@@ -8,6 +8,7 @@ const gptModel = "gpt-3.5-turbo";
 
 // ./api/prompts
 
+let storeName = 'John Doe';
 let storeScenario = '';
 let storeTheme = '';
 
@@ -30,7 +31,7 @@ router.post('/generate/:theme', async (req, res) => {
         },
         {
           "role": "system",
-          "content": `You are an expert storyteller. Write a one paragraph starting scenario about your ${req.params.theme} adventure. Limit to 200 words.`,
+          "content": `You are an expert storyteller. Write a one paragraph starting scenario about your ${req.params.theme} adventure with ${storeName} as protagonist. Limit to 200 words.`,
         },
     ];
     const prompt = await openai.chat.completions.create({
@@ -41,6 +42,33 @@ router.post('/generate/:theme', async (req, res) => {
     storeScenario = prompt;
     res.json(prompt);
 });
+
+
+router.post('/generate/next', (async(req, res) => {
+    // Use scenario and selected prompt to generate next scenario
+    console.log(req.body);
+    let promptMessages = [
+        {
+          "role": "system",
+          "content": "You are an expert storyteller."
+        },
+        {
+          "role": "system",
+          "content": `You are an expert storyteller. Write the next scenario in my ${storeTheme} adventure using ${req.body.prompt} as the direction the story is headed. Limit scenario to 200 words.`,
+        },
+    ];
+    const prompt = await openai.chat.completions.create({
+        messages: promptMessages,
+        model: gptModel,
+    });
+
+    storeScenario = prompt;
+    res.json(prompt);
+}));
+
+router.post('/generate/finish', (async(req, res) => {
+    //FINISH story or game
+}));
 
 router.post('/generate', async(req, res) => {
     let promptMessages = [
@@ -82,6 +110,12 @@ router.post('/save', async(req, res) => {
     } catch(error) {
         res.status(400).json(error);
     }
+});
+
+router.post('/:name', async (req, res) => {
+    storeName = req.params.name;
+    res.json(storeName);
+    res.status(200);
 });
 
 module.exports = router;

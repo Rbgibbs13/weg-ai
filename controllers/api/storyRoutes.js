@@ -3,7 +3,17 @@ const { Story } = require('../../models');
 const authInput = require('../../utils/auth');
 
 // http://localhost:3001/api/story
-router.post('/story', async(req, res) => {
+router.get('/', async(req, res) => {
+    try {
+        const storyData = await Story.findAll({});
+        const stories = storyData.map((data) => data.get({ plain: true}));
+        res.status(200).json(stories);
+    } catch(error) {
+        res.status(500).json(error);
+    }
+});
+
+router.post('/generate', async(req, res) => {
     try {
         const newStory = await Story.create({
             ...req.body,
@@ -16,7 +26,7 @@ router.post('/story', async(req, res) => {
     }
 });
 
-router.delete('/story/:id', authInput, async(req, res) => {
+router.delete('/:id', authInput, async(req, res) => {
     try {
         const storyData = await Project.destroy({
             where: {

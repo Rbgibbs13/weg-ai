@@ -4,10 +4,7 @@ const authInput = require('../utils/auth');
 
 router.get('/', async(req, res) => {
     try {
-        const storyData = await Story.findAll({
-
-        });
-
+        const storyData = await Story.findAll({});
         const stories = storyData.map((data) => data.get({ plain: true}));
         res.render('story', {
             stories

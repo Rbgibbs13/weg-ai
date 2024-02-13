@@ -109,7 +109,6 @@ section::after {
     border: 1mm ridge var(--blue-color);
     background-color: grey;
     font-family: var(--salsa-font-family);
-    font-size: 150%;
     padding: 2%;
     min-width: 5rem;
     height: 5rem;
@@ -125,13 +124,13 @@ section::after {
     display: none;
     height: 10rem;
     right: 0;
+    top: 10%;
     width: 25%;
 }
 .show {
     display: block;
 }
 .hero-nav {
-    background-color: black;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -360,7 +359,11 @@ section::after {
     display: block;
     background-color: black;
 }
-
+.material-symbols-outlined {
+    font-size: 400%;
+    height: 100%;
+    width: 100%;
+}
 /* GAME CSS START */
 .game-container {
     width: 100%;
@@ -445,8 +448,14 @@ section::after {
 .even {
     color: var(--blue-color);
 }
+.even:hover {
+    color: var(--orange-color);
+}
 .odd {
     color: var(--orange-color);
+}
+.odd:hover {
+    color: var(--blue-color);
 }
 .theme-block {
     display: flex;

@@ -1,2 +1,61 @@
-<h1>Hello Story World</h1>
-<script src="../public/js/test.js"></script>
+<div class="game-container">
+    <h1 id="game-title">Select a Theme!</h1>
+    <div class="theme-block">
+    <hr class="line-break">
+        <div class="theme-container">
+            <label for="custom-theme">Custom Theme: </label>
+            <input type="text" placeholder="Your Theme!" minlength="1" maxlength="20" id="custom-theme">
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Space</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Rainforest</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Desert</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Mountain</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Sea</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Old West</p>
+        </div>
+        <div class="theme-container">
+            <button class="theme-button" id="btnOne"></button>
+            <p class="option-text">Fantasy</p>
+        </div>
+        <hr class="line-break">
+        <h1 id="character-title">Charcter Name!</h1>
+        <div class="theme-container">
+            <label for="custom-name">Character Name: </label>
+            <input type="text" placeholder="Your Name!" minlength="1" maxlength="20" id="custom-name">
+        </div>
+        <hr class="line-break">
+        <div class="theme-container">
+            <button class="submit-button"><p class="option-text">Submit</p></button>
+        </div>
+    </div>
+
+    <div class="response-block">
+        <div class="response-image-container fade">
+            <image src="../images/Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg" class="response-image"></image>
+            <p class="response-text"></p>
+        </div>
+    </div>
+
+    <div class="option-block">
+        
+    </div>
+</div>
+<script type="module" src="/js/test.js"></script>
+<script type="module" src="/js/index.js"></script>

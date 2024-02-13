@@ -96,8 +96,9 @@ const setTheme = async (input) => {
 const selectPrompt = async(index) => {
   //Store the CHOICE data and image here
   //Use CHOICE to generate new SCENARIO, IMAGE, and four PROMPTS
+  optionEl.style.display = "none";
   if(stored) { return; }
-  console.log("PROMPT SELECTED");
+  stored = true;
   let struct = {
     "theme" : theme,
     "scenario" : storeScenario,
@@ -106,7 +107,7 @@ const selectPrompt = async(index) => {
     "prompt_three" : storePrompts[2],
     "prompt_four" : storePrompts[3],
     "selected_prompt" : index,
-    "user_id" : storyID,
+    "user_id" : 1,
   };
   console.log(struct);
   const postData = await fetch('../api/prompts/save', {
@@ -116,19 +117,35 @@ const selectPrompt = async(index) => {
     },
     body: JSON.stringify(struct),
   });
+  let selectedPrompt;
+  if(index == 0) {
+    selectedPrompt = struct.prompt_one;
+  } else if(index == 1) {
+    selectedPrompt = struct.prompt_two;
+  } else if(index == 2) {
+    selectedPrompt = struct.prompt_three;
+  } else {
+    selectPrompt = struct.prompt_four;
+  }
+  await generateNext(storeScenario, selectedPrompt);
 };
 
-const generatePrompts = async(themeIN) => {
-  const scenario = await fetch(`../api/prompts/generate/${themeIN}`, {
+const generateNext = async(scenarioIN, promptIN) => {
+  const struct = {
+    "scenario": scenarioIN,
+    "prompt": promptIN,
+  };
+  const scenario = await fetch('../api/prompts/generate/next' , {
     method: 'POST',
     mode: "no-cors",
     headers: {
       "Content-Type": "application/json",
     },
+    body: JSON.stringify(struct),
   });
 
   const data = await scenario.json();
-  let bodyData = `${theme} environment.`
+  let bodyData = `${theme} environment. `
   bodyData += data.choices[0].message.content.split(". ")[0];
 
   const cartoonOptions = {
@@ -147,6 +164,100 @@ const generatePrompts = async(themeIN) => {
   };
   
   if(charName === "Garrett Gibbs") {
+    const realisticOptions = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+      },
+      body: JSON.stringify({
+        height: 512,
+        width: 512,
+        modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+        prompt: bodyData,
+        alchemy: true,
+        photoReal: true,
+        photoRealStrength: 0.45,
+        presetStyle: 'ENVIRONMENT'
+      })
+    };
+    await generateImage(realisticOptions);
+  } else {
+    await generateImage(cartoonOptions);
+  }
+
+  storeScenario = data.choices[0].message.content;
+  writeText(data.choices[0].message.content, responseTextEl);
+
+  const answers = await fetch(`/api/prompts/generate`, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const answerData = await answers.json();
+  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return true});
+  setTimeout(() => {
+    optionEl.style.display = "flex";
+    populateOption(splitArray);
+  }, 30000);
+};
+
+const generatePrompts = async(themeIN) => {
+  await fetch(`../api/prompts/${charName.split(" ")[0]}`, {
+    method: 'POST',
+  });
+
+  const scenario = await fetch(`../api/prompts/generate/${themeIN}`, {
+    method: 'POST',
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  const data = await scenario.json();
+  let bodyData = `${theme} environment. `
+  bodyData += data.choices[0].message.content.split(". ")[0];
+
+  const cartoonOptions = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+    },
+    body: JSON.stringify({
+      height: 512,
+      width: 512,
+      modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+      prompt: bodyData
+    })
+  };
+  
+  if(charName === "Garrett Gibbs") {
+    const realisticOptions = {
+      method: 'POST',
+      headers: {
+        accept: 'application/json',
+        'content-type': 'application/json',
+        authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+      },
+      body: JSON.stringify({
+        height: 512,
+        width: 512,
+        modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+        prompt: bodyData,
+        alchemy: true,
+        photoReal: true,
+        photoRealStrength: 0.45,
+        presetStyle: 'ENVIRONMENT'
+      })
+    };
+
     await generateImage(realisticOptions);
   } else {
     await generateImage(cartoonOptions);
@@ -204,7 +315,6 @@ const saveImages = async(images) => {
       "image_description": `${theme} Adventure`,
       "story_id": 1,
     }
-    console.log(struct);
     const postImages = await fetch("../api/images/save", {
       method: 'POST',
       headers: {
