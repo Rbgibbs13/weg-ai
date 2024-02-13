@@ -14,9 +14,13 @@ let storeTheme = '';
 
 router.get('/', async(req, res) => {
     try {
-        const promptData = await Prompts.findAll({});
-        const prompts = promptData.map((data) => data.get({ plain: true }));
-        res.json(prompts);
+        
+        console.log("Prompt route");
+        const promptData = await Prompts.findAll();
+        console.log(promptData);
+        // const prompts = promptData.map((data) => data.get({ plain: true }));
+        // console.log(prompts);
+        res.json(promptData);
     } catch(error) {
         res.status(500).json(error);
     }
@@ -42,7 +46,6 @@ router.post('/generate/:theme', async (req, res) => {
     storeScenario = prompt;
     res.json(prompt);
 });
-
 
 router.post('/generate/next', (async(req, res) => {
     // Use scenario and selected prompt to generate next scenario

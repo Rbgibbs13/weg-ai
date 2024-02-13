@@ -47,16 +47,15 @@ let cycleImageIndex = Math.floor(Math.random() * localImages.length);
 let responseImageIndex = Math.floor(Math.random() * splashImages.length);
 
 if(document.querySelector(".response-image")) { document.querySelector(".response-image").src = splashImages[responseImageIndex]; }
-const getStoredImages = async () => {
-    const storedImages = await fetch('../api/images', {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-          },
-      });
+
+// const getStoredImages = async () => {
+//     const storedImages = await fetch('/api/images', {
+//         method: "GET",
+//       });
     
-    const images = await storedImages.json();
-}
+//     const images = await storedImages.json();
+//     console.log(images);
+// }
 
 const plusSlides = (n) => {
   showSlides(slideIndex += n);
@@ -71,7 +70,7 @@ const showSlides = async (n) => {
   let dots = document.getElementsByClassName("dot");
 
   if(!slides || !dots) { return; }
-  if (n >= slides.length) {slideIndex = 0};
+  if (n >= slides.length - 1) {slideIndex = 0};
   if (n < 0) {slideIndex = slides.length - 1};
 
   for (i = 0; i < slides.length; i++) { slides[i].style.display = "none"; }
@@ -110,8 +109,8 @@ const fadeOutEffect = (element) => {
             element.style.opacity -= 0.05;
         } else {
             changeImage();
-            fadeInEffect(element);
             clearInterval(fadeOut);
+            fadeInEffect(element);
         }
     }, 40);
 };
@@ -136,8 +135,9 @@ closeBtnEl.addEventListener("click", (e) => {
     document.querySelector(".dropdown-container").classList.toggle("show");
 })
 
-getStoredImages();
+showSlides(slideIndex);
+cycleImages();
+// getStoredImages();
 if(page == "") {
-    showSlides(slideIndex);
-    cycleImages();
+    
 }

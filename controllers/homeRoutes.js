@@ -12,9 +12,7 @@ router.get('/', async(req, res) => {
             //     },
             // ],
         });
-
         const images = imageData.map((data) => data.get({ plain: true }));
-        console.log(images);
 
         res.render('homepage', {
             images
