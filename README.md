@@ -21,7 +21,8 @@ The main two technologies we used were ```openAI ChatGPT v3.5``` and ```Leonardo
 We tried to also use ```animejs``` but ran out of time. This tech would be used as a placeholder or splash screen while the other data is being generated.
 
 # Screenshot
-...
+![Uploading Screenshot 2024-02-13 at 12.28.05 PM.png…]()
+
 
 # Deployed Link
 https://weg-ai-story-generator-ea7c8be45eb8.herokuapp.com/
