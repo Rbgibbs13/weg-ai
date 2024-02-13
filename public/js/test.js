@@ -1,7 +1,9 @@
 const gameTitleEl = document.querySelector('#game-title');
+const charTitleEl = document.querySelector("#character-title");
+const promptText = document.querySelectorAll(".option-text");
 const promptBtns = document.querySelectorAll(".option-button");
 const themeBtns = document.querySelectorAll(".theme-button");
-const promptText = document.querySelectorAll(".option-text");
+const submitBtnEl = document.querySelector('.submit-button');
 
 const responseEl = document.querySelector('.response-block');
 const responseTextEl = document.querySelector(".response-text");
@@ -10,8 +12,10 @@ const optionEl = document.querySelector('.option-block');
 
 const themeEl = document.querySelector(".theme-block");
 const themeInputEl = document.querySelector('#custom-theme');
+const nameInputEl = document.querySelector("#custom-name");
 
 let theme = "";
+let charName = "John Doe";
 const charTime = 40;
 const startScenario = `"Your scenario is being generated, please wait patiently...."`
 
@@ -30,7 +34,7 @@ let cartoonBody = {
   height: 512,
   width: 512,
   modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-  prompt: 'A forest in the mountains',
+  prompt: 'Rainforest cafe',
 };
 
 const realisticOptions = {
@@ -43,20 +47,7 @@ const realisticOptions = {
   body: JSON.stringify(realBody)
 };
 
-const cartoonOptions = {
-  method: 'POST',
-  headers: {
-    accept: 'application/json',
-    'content-type': 'application/json',
-    authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
-  },
-  body: JSON.stringify({
-    height: 512,
-    width: 512,
-    modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
-    prompt: 'A forest in the mountains',
-  })
-};
+
 
 const getOptions = {
   method: 'GET',
@@ -72,34 +63,43 @@ const hideElements = () => {
   optionEl.style.display = "none";
 }
 
-const selectTheme = async (selection) => {
-  theme = selection.innerHTML;
-  gameTitleEl.innerHTML = theme + " Adventure!";
+const startGame = async() => {
+  //Generate Image and Prompts here
   themeEl.style.display = "none";
   responseEl.style.display = "flex";
-
-  //Generate Image and Prompts here
+  gameTitleEl.innerHTML = `${charName} ${theme} Adventure!`;
+  
   writeText(startScenario, responseTextEl);
   await generatePrompts(theme);
+};
+
+const setName = async(input) => {
+  let my_name = input.split(" ");
+  for(let i = 0; i < my_name.length; i++) {
+    my_name[i] = my_name[i].charAt(0).toUpperCase() + my_name[i].slice(1);
+  }
+  my_name = my_name.join(" ");
+  charName = my_name;
+  if(charName.length < 1) {
+    gameTitleEl.innerHTML = "Character Name!";
+    return;
+  }
+  charTitleEl.innerHTML = charName;
+}
+
+const setTheme = async (input) => {
+  theme = input;
+  theme = theme.charAt(0).toUpperCase() + theme.slice(1);
+  if(theme.length < 1) {
+    gameTitleEl.innerHTML = "Select a Theme!";
+    return;
+  }
+  gameTitleEl.innerHTML = theme;
   //generateImage();
 
   // await writeText(promptArray[0], responseTextEl).then(() => {
   //   writePrompts();
   // });
-};
-
-const setTheme = (input) => {
-  theme = input;
-  themeEl.style.display = "none";
-  responseEl.style.display = "flex";
-
-  writeText(testScenario, responseTextEl).then(() => {
-    //Generate Image here and
-    
-  });
-  for(let i = 0; i < promptText.length; i++) {
-    writeText(promptText[i].innerHTML, promptText[i]);
-  };
 };
 
 const selectPrompt = async(index) => {
@@ -126,10 +126,26 @@ const generatePrompts = async(themeIN) => {
   });
 
   const data = await scenario.json();
-  cartoonBody.prompt = data.choices[0].message.content;
-  await generateImage();
+  let bodyData = `${theme} environment.`
+  bodyData += data.choices[0].message.content.split(". ")[0];
+
+  const cartoonOptions = {
+    method: 'POST',
+    headers: {
+      accept: 'application/json',
+      'content-type': 'application/json',
+      authorization: 'Bearer c767a347-672d-40a2-aa40-5c800d2ee927'
+    },
+    body: JSON.stringify({
+      height: 512,
+      width: 512,
+      modelId: '6bef9f1b-29cb-40c7-b9df-32b51c1f67d3',
+      prompt: bodyData
+    })
+  };
+  
+  await generateImage(cartoonOptions);
   writeText(data.choices[0].message.content, responseTextEl);
-  // responseImageEl.src = images[0];
 
   const answers = await fetch(`/api/prompt/generate`, {
     method: 'POST',
@@ -140,13 +156,16 @@ const generatePrompts = async(themeIN) => {
   });
 
   const answerData = await answers.json();
-  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return split});
-  optionEl.style.display = "flex";
-  writePrompts(splitArray);
+  const splitArray = answerData.choices[0].message.content.split("\n").filter((split) => { if(split) return true});
+  setTimeout(() => {
+    optionEl.style.display = "flex";
+    populateOption(splitArray);
+  }, 30000);
 };
 
-const generateImage = async() => {
-    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', cartoonOptions);
+const generateImage = async(input) => {
+    console.log(input);
+    const rawData = await fetch('https://cloud.leonardo.ai/api/rest/v1/generations/', input);
     let gID = await rawData.json();
     let generatedID = gID.sdGenerationJob.generationId;
     setTimeout(() => getImage(`${generatedID}`), 10000);
@@ -165,14 +184,45 @@ const getImage = async(gID) => {
 
     console.log(imageArray);
     responseImageEl.src = imageArray[0];
+    imageCarousel(imageArray);
 };
 
+const imageCarousel = (images) => {
+  let index = 0;
+  setInterval(() => {
+    responseImageEl.src = images[index];
+    index++;
+    if(index > images.length - 1) { index = 0; }
+  }, 5000);
+}
 
-const writePrompts = async(promptData) => {
-  console.log(promptData);
-  for(let i = 0; i < promptData.length; i++) {
-    console.log(promptText[i]);
-    writeText(promptData[i], promptText[i]);
+const populateOption = (selections) => {
+  const optionBlockEl = document.querySelector(".option-block");
+  const textArray = [];
+  for(let i = 0; i < selections.length; i++) {
+    const optionDiv = document.createElement("div");
+    const optionButton = document.createElement("button");
+    const optionText = document.createElement("p");
+
+    optionDiv.classList.add("option-container");
+    optionButton.classList.add("option-button");
+    optionText.classList.add("option-text");
+
+    if(i % 2 === 0) { optionText.classList.add("even"); }
+    else { optionText.classList.add("odd"); }
+
+    optionText.textContent = selections[i];
+    textArray.push(optionText);
+    optionDiv.append(optionButton);
+    optionDiv.append(optionText);
+    optionBlockEl.append(optionDiv);
+  };
+  writePrompts(selections, textArray);
+};
+
+const writePrompts = async(inputs, targets) => {
+  for(let i = 0; i < inputs.length; i++) {
+    await writeText(inputs[i], targets[i]);
   };
 };
 
@@ -180,7 +230,6 @@ const writeText = async(input, target) => {
   let copy = input;
   let build = "";
   let index = 0;
-  console.log(copy + " : Target => " + target);
 
   const printCharacter = async() => {
 
@@ -190,47 +239,38 @@ const writeText = async(input, target) => {
       if(index <= copy.length) { printCharacter(); }
     }, charTime);
 
-    // if(copy[index] === " ") {
-    //   const spaceBuild = setInterval(() => {
-    //     build += copy.charAt(index);
-    //     index++;
-    //     if(index <= copy.length) { printCharacter(); }
-    //   }, spaceTime);
-    // } else if(copy[index] === ".") {
-    //   const periodBuild = setInterval(() => {
-    //     build += copy.charAt(index);
-    //     index++;
-    //     if(index <= copy.length) { printCharacter(); }
-    //   }, periodTime);
-    // } else if(copy[index] === "<") {
-    //   setInterval(() => {
-    //     build += copy.charAt(index);
-    //     index++;
-    //     if(index <= copy.length) { printCharacter(); }
-    //   }, 2000);
-    // } else {
-      
-    // }
-
     target.innerHTML = build;
   };
 
   printCharacter();
 };
 
+//PROMPT button listeners
 for(let i = 0; i < promptBtns.length; i++) {
   promptBtns[i].addEventListener("click", (e) => {
     selectPrompt(i);
   });
 };
-themeInputEl.addEventListener("submit", (e) => {
-  e.preventDefault();
-  selectTheme(themeInputEl.parentElement.children[1]);
-});
+//THEME Button Listeners
 for(let i = 0; i < themeBtns.length; i++) {
   themeBtns[i].addEventListener("click", async (e) => {
-    await selectTheme(themeBtns[i].parentElement.children[1]);
+    await setTheme(themeBtns[i].parentElement.children[1].innerHTML);
   });
 };
+//THEME INPUT listener
+themeInputEl.addEventListener("input", (e) => {
+  e.preventDefault();
+  setTheme(themeInputEl.value);
+});
+//NAME listener
+nameInputEl.addEventListener("input", (e) => {
+  e.preventDefault();
+  setName(nameInputEl.value);
+});
+//SUBMIT listener
+submitBtnEl.addEventListener("click", (e) => {
+  e.preventDefault();
+  startGame();
+});
 
 hideElements();

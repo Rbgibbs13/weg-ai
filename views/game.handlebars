@@ -1,6 +1,11 @@
-<div class="container">
+<div class="game-container">
     <h1 id="game-title">Select a Theme!</h1>
     <div class="theme-block">
+    <hr class="line-break">
+        <div class="theme-container">
+            <label for="custom-theme">Custom Theme: </label>
+            <input type="text" placeholder="Your Theme!" minlength="1" maxlength="20" id="custom-theme">
+        </div>
         <div class="theme-container">
             <button class="theme-button" id="btnOne"></button>
             <p class="option-text">Space</p>
@@ -29,15 +34,15 @@
             <button class="theme-button" id="btnOne"></button>
             <p class="option-text">Fantasy</p>
         </div>
-        <br>
+        <hr class="line-break">
+        <h1 id="character-title">Charcter Name!</h1>
+        <div class="theme-container">
+            <label for="custom-name">Character Name: </label>
+            <input type="text" placeholder="Your Name!" minlength="1" maxlength="20" id="custom-name">
+        </div>
         <hr class="line-break">
         <div class="theme-container">
-            <label for="custom-theme">Custom Theme: </label>
-            <input type="text" placeholder="Your Theme!" minlength="1" maxlength="20" id="custom-theme">
-        </div>
-        <div class="theme-container">
-            <label for="custom-name">Character Name </label>
-            <input type="text" placeholder="Your Name!" minlength="1" maxlength="20" id="custom-name">
+            <button class="submit-button"><p class="option-text">Submit</p></button>
         </div>
     </div>
 
@@ -49,22 +54,7 @@
     </div>
 
     <div class="option-block">
-        <div class="option-container">
-            <button class="option-button" id="btnOne"></button>
-            <p class="option-text">Text for First Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnTwo"></button>
-            <p class="option-text">Text for Second Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnThree"></button>
-            <p class="option-text">Text for Third Option</p>
-        </div>
-        <div class="option-container">
-            <button class="option-button" id="btnFour"></button>
-            <p class="option-text">Text for Fourth Option</p>
-        </div>
+        
     </div>
 </div>
 <script type="module" src="/js/test.js"></script>

@@ -7,9 +7,6 @@ const imageHolderArrayEl = document.querySelectorAll('.slideshow-image');
 const slides = document.getElementsByClassName("slides");
 
 const path = "../images/";
-let cycleImageIndex = 0;
-let slideIndex = 0;
-
 let localImages = [
 path + "Leonardo_Creative_A_forest_in_the_mountains_0.jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_0(1).jpg",
@@ -23,7 +20,29 @@ path + "Leonardo_Creative_A_forest_in_the_mountains_1(3).jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3.jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3(1).jpg",
 path + "Leonardo_Creative_A_forest_in_the_mountains_3(2).jpg",
-path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",];
+path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",
+path + "cherry-blossom-fight.jpg",
+path + "cherry-blossom-fight-alt.jpg",
+path + "cherry-blossom.jpg",
+path + "desert_warfare.jpg",
+path + "desert_warfare_2.jpg",
+path + "tropical_beach.jpg",];
+
+let splashImages = [
+path + "Leonardo_Diffusion_XL_silhouette_of_a_women_at_night_high_on_t_0.jpg",
+path + "cherry-blossom-fight.jpg",
+path + "cherry-blossom-fight-alt.jpg",
+path + "cherry-blossom.jpg",
+path + "desert_warfare.jpg",
+path + "desert_warfare_2.jpg",
+path + "tropical_beach.jpg",
+];
+
+let slideIndex = 0;
+let cycleImageIndex = Math.floor(Math.random() * localImages.length);
+let responseImageIndex = Math.floor(Math.random() * splashImages.length);
+
+if(document.querySelector(".response-image")) { document.querySelector(".response-image").src = splashImages[responseImageIndex]; }
 
 const plusSlides = (n) => {
   showSlides(slideIndex += n);

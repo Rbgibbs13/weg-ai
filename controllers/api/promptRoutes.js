@@ -27,7 +27,6 @@ router.post('/generate', async(req, res) => {
         messages: promptMessages,
         model: gptModel,
     });
-
     res.json(responses);
 });
 

@@ -2,7 +2,6 @@
     box-sizing:border-box;
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
 }
 
 :root {
@@ -20,6 +19,7 @@
 }
 
 body {
+    overflow-x: hidden;
     background-color: rgb(0, 0, 0);
 }
 section {
@@ -66,7 +66,6 @@ section::after {
     color: white;
     font-family: var(--riot-font-family);
     font-size: 250%;
-    overflow: hidden;
     margin: auto 0;
     text-align: center;
     text-shadow: .3rem .3rem rgba(255, 183, 0, 0.523);
@@ -363,7 +362,21 @@ section::after {
 }
 
 /* GAME CSS START */
+.game-container {
+    width: 100%;
+    height: 60rem;
+    padding: 2% 5%;
+}
 #game-title {
+    color: var(--blue-color);
+    font-family: var(--salsa-font-family);
+    font-size: 300%;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: .2rem .2rem var(--grey-color);
+    width: 100%;
+}
+#character-title {
     color: var(--blue-color);
     font-family: var(--salsa-font-family);
     font-size: 300%;
@@ -425,15 +438,23 @@ section::after {
     transition-duration: .6s;
 }
 .option-text {
-    color: white;
+    color: ivory;
     font-family: var(--poppins-font-family);
     font-size: 150%;
+}
+.even {
+    color: var(--blue-color);
+    text-shadow: .2rem .2rem var(--grey-color);
+}
+.odd {
+    color: var(--orange-color);
+    text-shadow: .2rem .2rem var(--grey-color);
 }
 .theme-block {
     display: flex;
     flex-direction: column;
     margin: auto 20%;
-    height: 25rem;
+    height: 100%;
     width: 60%;
 }
 .theme-container {
@@ -465,9 +486,24 @@ section::after {
     font-family: var(--poppins-font-family);
     margin: auto 2%;
 }
+.submit-button {
+    background-color: var(--blue-color);
+    border: .2rem ridge var(--orange-color);
+    border-radius: 25px;
+    margin: 0% auto;
+    height: 5rem;
+    width: 20rem;
+}
+.submit-button:hover {
+    transition-duration: .8s;
+    background-color: var(--grey-color);
+}
+.submit-button p {
+    font-size: 250%;
+}
 .line-break {
-    border: 4px solid var(--blue-color);
-    margin-bottom: 1%;
+    border: 2px solid var(--blue-color);
+    margin: 1% 0%;
     width: 100%
 }
 #custom-theme {
