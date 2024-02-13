@@ -16,7 +16,7 @@ We imported ```bcrypt``` and ```express-sessions``` to authorize, authenticate, 
 ```uuid``` was also imported and will be used to generate unique ID's for users when we get validation running.
 
 # Technologies
-The main two technologies we used were ```openAI ChatGPT v3.5``` and ```Leonardo AI``` as an image generator for our prompts/scenarios/images.\
+The main two technologies we used were ```openAI ChatGPT v3.5``` and ```Leonardo AI``` as an image generator for our prompts/scenarios/images.
 
 We tried to also use ```animejs``` but ran out of time. This tech would be used as a placeholder or splash screen while the other data is being generated.
 
